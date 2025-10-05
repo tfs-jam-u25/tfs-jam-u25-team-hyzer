@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 attackSensorSize = new Vector2(5f, 1f);
     [Tooltip("1-1 ratio of damage that will be inflected upon enenmy health controller")]
     public int attackDamage = 1;
+    public float attackTimer = 0.25f;
+    private float nextAttackCountdown = 0f;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -187,6 +189,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        nextAttackCountdown -= Time.deltaTime;
+
         if (canMove)
         {
 
@@ -280,7 +284,7 @@ public class PlayerController : MonoBehaviour
             //    }
             //}
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && nextAttackCountdown <= 0)
             {
 
                 if (fire1Sound != null && audioSource != null)
@@ -334,6 +338,8 @@ public class PlayerController : MonoBehaviour
                         }
                         */
                     }
+
+                    nextAttackCountdown = attackTimer;
                 }
             }
 
