@@ -64737,6 +64737,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8256917665528159926, guid: 11420c91fe26050498921015117572d4, type: 3}
+      propertyPath: unlockDash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256917665528159926, guid: 11420c91fe26050498921015117572d4, type: 3}
+      propertyPath: unlockMessage
+      value: Double Jump Unlocked - Press Jump again in the air to jump a second
+        time
+      objectReference: {fileID: 0}
     - target: {fileID: 8256917665528159929, guid: 11420c91fe26050498921015117572d4, type: 3}
       propertyPath: m_Name
       value: Ability Pickup

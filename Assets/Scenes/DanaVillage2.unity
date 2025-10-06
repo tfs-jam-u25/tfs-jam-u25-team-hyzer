@@ -1950,6 +1950,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8256917665528159926, guid: 11420c91fe26050498921015117572d4, type: 3}
+      propertyPath: unlockMessage
+      value: Dash Unlocked - Right click to Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256917665528159926, guid: 11420c91fe26050498921015117572d4, type: 3}
+      propertyPath: unlockDoubleJump
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8256917665528159929, guid: 11420c91fe26050498921015117572d4, type: 3}
       propertyPath: m_Name
       value: Ability Pickup
