@@ -18,10 +18,12 @@ public class MusicTrigger : MonoBehaviour
         bossAudioSource.volume = 0f; // start silent
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("entered boss trigger, play fancy boss music");
         if (other.CompareTag("Player"))
         {
+            Debug.Log("player entered boss trigger, play fancy boss music");
             // Stop background music with fade
             StartCoroutine(FadeOut(MusicManager.Instance.audioSource, fadeTime));
 
@@ -32,7 +34,7 @@ public class MusicTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {

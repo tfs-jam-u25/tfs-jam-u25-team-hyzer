@@ -36790,11 +36790,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5506913320634398856, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 280.01
+      value: 277.68
       objectReference: {fileID: 0}
     - target: {fileID: 5506913320634398856, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.02
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 5506913320634398856, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
       propertyPath: m_LocalPosition.z
@@ -63495,7 +63495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1616142563
 Transform:
   m_ObjectHideFlags: 0
@@ -63592,7 +63592,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.1167893
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
