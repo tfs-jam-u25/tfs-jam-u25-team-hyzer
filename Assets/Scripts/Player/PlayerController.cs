@@ -308,9 +308,7 @@ public class PlayerController : MonoBehaviour
                         if (enemy.isReadyForExecute)
                         {
                             enemyHealth.ExecuteEnemy();
-                            Debug.Log("player executes enemy in silence");
-                            
-                            GameManager.Instance.harvestScore.AddExecution(ExecutionScore.Type.silence);
+                            Debug.Log("player executes enemy in silence");                            
                         } else
                         {
                             enemy.GetComponent<EnemyHealthController>().DamageEnemy(attackDamage);
