@@ -65502,6 +65502,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2981896811782514929, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
+      propertyPath: newMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b512cc4d8518cd40b105b7f8e9b2ccf, type: 3}
     - target: {fileID: 5506913320634398856, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
       propertyPath: m_LocalPosition.x
       value: 245.8
@@ -65544,7 +65548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6473470635027463859, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6939299744955907875, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
       propertyPath: bossToActivate
@@ -89657,6 +89661,14 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1640854564236856411, guid: ca9fd0f62643ace4e840d12d7f62e111, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b032b7db8b40b54c89c8585c9e7c545, type: 3}
+    - target: {fileID: 1640854564236856411, guid: ca9fd0f62643ace4e840d12d7f62e111, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b032b7db8b40b54c89c8585c9e7c545, type: 3}
     - target: {fileID: 2507184041763218727, guid: ca9fd0f62643ace4e840d12d7f62e111, type: 3}
       propertyPath: m_Name
       value: MusicManager

@@ -36788,6 +36788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Activator
       objectReference: {fileID: 0}
+    - target: {fileID: 2981896811782514929, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
+      propertyPath: newMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b512cc4d8518cd40b105b7f8e9b2ccf, type: 3}
     - target: {fileID: 5506913320634398856, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
       propertyPath: m_LocalPosition.x
       value: 277.68
@@ -36832,7 +36836,9 @@ PrefabInstance:
       propertyPath: bossToActivate
       value: 
       objectReference: {fileID: 1607306811}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2981896811782514929, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
+    - {fileID: 6473470635027463859, guid: 6ce96aafa5fba714eb141d77419f2d37, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -63495,7 +63501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1616142563
 Transform:
   m_ObjectHideFlags: 0
@@ -63523,8 +63529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc174cc70e9e3264bb4016f7608bf67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossMusic: {fileID: 8300000, guid: 3b512cc4d8518cd40b105b7f8e9b2ccf, type: 3}
-  fadeTime: 1.5
+  newMusic: {fileID: 8300000, guid: 3b512cc4d8518cd40b105b7f8e9b2ccf, type: 3}
 --- !u!61 &1616142565
 BoxCollider2D:
   m_ObjectHideFlags: 0

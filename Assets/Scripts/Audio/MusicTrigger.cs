@@ -1,36 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class MusicTrigger : MonoBehaviour
 {
-    [Header("Boss Music")]
-    public AudioClip bossMusic;
-    public float fadeTime = 1.5f; // seconds
+    public AudioClip newMusic;
 
-    private AudioSource bossAudioSource;
-
-    private void Start()
+    private void Reset()
     {
-        // Create a new AudioSource for this trigger
-        bossAudioSource = gameObject.AddComponent<AudioSource>();
-        bossAudioSource.loop = true;
-        bossAudioSource.playOnAwake = false;
-        bossAudioSource.volume = 0f; // start silent
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        box.isTrigger = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("entered boss trigger, play fancy boss music");
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && newMusic != null)
         {
-            Debug.Log("player entered boss trigger, play fancy boss music");
-            // Stop background music with fade
-            StartCoroutine(FadeOut(MusicManager.Instance.audioSource, fadeTime));
-
-            // Play boss music with fade in
-            bossAudioSource.clip = bossMusic;
-            bossAudioSource.Play();
-            StartCoroutine(FadeIn(bossAudioSource, fadeTime));
+            MusicManager.Instance.PlayMusic(newMusic);
+            MusicManager.Instance.SetTriggerZone(true);
         }
     }
 
@@ -38,47 +24,8 @@ public class MusicTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Fade out boss music
-            StartCoroutine(FadeOut(bossAudioSource, fadeTime));
-
-            // Resume background music with fade in
-            StartCoroutine(FadeIn(MusicManager.Instance.audioSource, fadeTime));
+            MusicManager.Instance.ReturnToDefault();
+            MusicManager.Instance.SetTriggerZone(false);
         }
-    }
-
-    // 🔹 Fade helpers
-    private IEnumerator FadeOut(AudioSource source, float duration)
-    {
-        if (source == null || !source.isPlaying) yield break;
-
-        float startVolume = source.volume;
-        float time = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            source.volume = Mathf.Lerp(startVolume, 0f, time / duration);
-            yield return null;
-        }
-
-        source.volume = 0f;
-        source.Pause(); // stop but remember time
-    }
-
-    private IEnumerator FadeIn(AudioSource source, float duration)
-    {
-        if (source == null) yield break;
-
-        float time = 0f;
-        source.Play();
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            source.volume = Mathf.Lerp(0f, 1f, time / duration);
-            yield return null;
-        }
-
-        source.volume = 1f;
     }
 }
