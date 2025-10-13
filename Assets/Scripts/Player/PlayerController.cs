@@ -111,6 +111,13 @@ public class PlayerController : MonoBehaviour
 
     public int nextRoomDoorID;
 
+    private Knockback knockback;
+    [Header("Knockback settings")]
+    public Vector2 knockbackForce;
+    public float knockbackExecuteMultiplier = 3.0f;
+
+    //may add knockback type or duration
+
     // Start is called before the first frame update
     void Start()
     {
@@ -118,6 +125,9 @@ public class PlayerController : MonoBehaviour
         hider = GetComponent<PlayerHider>();
         canMove = true;
         sensorPos = (Vector2)transform.position;
+
+        knockback = gameObject.AddComponent<Knockback>();
+
         //attackSensorPos = (Vector2)transform.position + attackSensorOffset + Vector2.right;
         //attackSensorPos = (Vector2)transform.position + (isFacingLeft ? Vector2.left : Vector2.right) * attackSensorOffset.x;
         //attackSensorPos = (Vector2)transform.position + Vector2.right * Mathf.Sign(transform.localScale.x);
@@ -300,17 +310,26 @@ public class PlayerController : MonoBehaviour
                     attackSensorPos = (Vector2)transform.position + direction + new Vector2(0, attackSensorOffset.y);
                     //Instantiate(shotToFire, shotOrigin.position, shotOrigin.rotation).moveDir = new Vector2(transform.localScale.x, 0);
                     Collider2D hit = Physics2D.OverlapBox(attackSensorPos, attackSensorSize, 0f, LayerMask.GetMask("Enemy"));
+                    
+                    //hit and hit boss conditions should be replaced with enemy tags or an identifier in their gameObject we can query
                     if (hit != null)
-                    {
+                    {   
                         Debug.Log("Player attacks an enemy");
                         EnemyPatroller enemy = hit.GetComponent<EnemyPatroller>();
                         EnemyHealthController enemyHealth = enemy.GetComponent<EnemyHealthController>();
+
+                        Vector2 attackForce = isFacingLeft ? new Vector2(-knockbackForce.x, knockbackForce.y) : knockbackForce;
+                        
                         if (enemy.isReadyForExecute)
                         {
+                            
+                            knockback.apply(enemy.rb, ForceMode2D.Force, attackForce * knockbackExecuteMultiplier, 0);
+
                             enemyHealth.ExecuteEnemy();
                             Debug.Log("player executes enemy in silence");                            
                         } else
                         {
+                            knockback.apply(enemy.rb, ForceMode2D.Force, attackForce, 0);
                             enemy.GetComponent<EnemyHealthController>().DamageEnemy(attackDamage);
                         }
                             
