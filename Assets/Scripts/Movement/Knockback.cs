@@ -23,6 +23,7 @@ public class Knockback : MonoBehaviour
 
     public void apply (Rigidbody2D affectedObj, ForceMode2D mode, Vector2 forceDirection, float duration)
     {
+        
         Debug.Log($"apply knockback with x {forceDirection.x} and y {forceDirection.y}");
         affectedObj.AddForce(affectedObj.position * forceDirection, mode);
     }

@@ -296,11 +296,11 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Fire1") && nextAttackCountdown <= 0)
             {
-
+                /*
                 if (fire1Sound != null && audioSource != null)
                 {
                     audioSource.PlayOneShot(fire1Sound);
-                }
+                }*/
 
                 //add attack damage delay so we can't just spam attack
                 if (standing.activeSelf)
@@ -440,6 +440,20 @@ public class PlayerController : MonoBehaviour
         }
 
         HandleStates();
+    }
+    
+    public void AnimationAttackTrigger(AnimationEvent animEvent)
+    {
+        Debug.Log("play the players attack animation here");
+        if (fire1Sound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(fire1Sound);
+        }
+    }
+
+    public void AnimationAttackTriggerTest()
+    {
+        Debug.Log("play the players attack animation here");
     }
 
     public void ShowAfterImage()
