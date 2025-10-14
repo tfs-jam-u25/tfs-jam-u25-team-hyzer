@@ -771,6 +771,7 @@ MonoBehaviour:
   attackTrigger: {fileID: 3075424183738001384}
   attackSensorSize: {x: 3, y: 1}
   attackDamage: 1
+  attackTimer: 0.25
   audioSource: {fileID: 5095780015746520790}
   fire1Sound: {fileID: 8300000, guid: 62b28235d360ab74eb22c06f2b4a2f38, type: 3}
   anim: {fileID: 5125607927568647425}
@@ -793,6 +794,8 @@ MonoBehaviour:
   bomb: {fileID: 608134037809762253, guid: ee1719f7e9e58e84eb03193c03b1e5aa, type: 3}
   canMove: 0
   nextRoomDoorID: 1
+  knockbackForce: {x: 10, y: 3}
+  knockbackExecuteMultiplier: 3
 --- !u!114 &2854810467094597035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,7 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDoubleJump: 0
-  canDash: 1
+  canDash: 0
   canBecomeBall: 0
   canDropBomb: 0
 --- !u!114 &4597501723039448607
@@ -1025,6 +1028,7 @@ GameObject:
   - component: {fileID: 2230886296167066726}
   - component: {fileID: 5125607927568647425}
   - component: {fileID: 6303673071241987031}
+  - component: {fileID: 3748264807349214589}
   m_Layer: 8
   m_Name: Standing Sprite
   m_TagString: Player
@@ -1174,6 +1178,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pc: {fileID: 3819979931699131296}
+--- !u!114 &3748264807349214589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294376204420959715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb8ef2207c80c34ab7a1b55262edb2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8705715225039075373
 GameObject:
   m_ObjectHideFlags: 0
