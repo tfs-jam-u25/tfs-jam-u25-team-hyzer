@@ -33,7 +33,8 @@ public class FearedState : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        //player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        player = gameObject.GetComponentInParent<Transform>();
         ApplyFearModifiers();
     }
 
