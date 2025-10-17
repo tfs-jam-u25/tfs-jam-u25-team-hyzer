@@ -3994,6 +3994,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7946379293298709223, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
+      propertyPath: deathEffect
+      value: 
+      objectReference: {fileID: 8672667104378681300, guid: 08ec795d28632d7498c7b9419ddbf9a1, type: 3}
     - target: {fileID: 9023416465319478863, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.9
