@@ -31,6 +31,8 @@ public class EnemyPatroller : MonoBehaviour
     public EnemyState currentState = EnemyState.Wait;
     public EnemyState previousState = EnemyState.Wait;
 
+    private Knockback knockback;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,8 @@ public class EnemyPatroller : MonoBehaviour
         {
             ActivateHarvestHalo();
         }
+
+        knockback = gameObject.AddComponent<Knockback>();
 
     }
 
@@ -178,5 +182,10 @@ public class EnemyPatroller : MonoBehaviour
             Vector3 pos = transform.position + Vector3.up * debugHaloHeight;
             Gizmos.DrawSphere(pos, debugHaloSize);
         }
+    }
+
+    public void Knockback(ForceMode2D forceType, Vector2 knockbackForce)
+    {
+        knockback.apply(rb, forceType, knockbackForce, 0);        
     }
 }

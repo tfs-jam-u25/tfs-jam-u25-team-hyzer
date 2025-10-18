@@ -301,63 +301,11 @@ public class PlayerController : MonoBehaviour
                 {
                     audioSource.PlayOneShot(fire1Sound);
                 }*/
-
-                //add attack damage delay so we can't just spam attack
-                if (standing.activeSelf)
-                {
-                    Debug.Log("Player attacks");
-                    Vector2 direction = Vector2.right * Mathf.Sign(transform.localScale.x);
-                    attackSensorPos = (Vector2)transform.position + direction + new Vector2(0, attackSensorOffset.y);
-                    //Instantiate(shotToFire, shotOrigin.position, shotOrigin.rotation).moveDir = new Vector2(transform.localScale.x, 0);
-                    Collider2D hit = Physics2D.OverlapBox(attackSensorPos, attackSensorSize, 0f, LayerMask.GetMask("Enemy"));
                     
-                    //hit and hit boss conditions should be replaced with enemy tags or an identifier in their gameObject we can query
-                    if (hit != null)
-                    {   
-                        Debug.Log("Player attacks an enemy");
-                        EnemyPatroller enemy = hit.GetComponent<EnemyPatroller>();
-                        EnemyHealthController enemyHealth = enemy.GetComponent<EnemyHealthController>();
+                //start attack cooldown
+                nextAttackCountdown = attackTimer;
 
-                        Vector2 attackForce = isFacingLeft ? new Vector2(-knockbackForce.x, knockbackForce.y) : knockbackForce;
-                        
-                        if (enemy.isReadyForExecute)
-                        {
-                            
-                            knockback.apply(enemy.rb, ForceMode2D.Force, attackForce * knockbackExecuteMultiplier, 0);
-
-                            enemyHealth.ExecuteEnemy();
-                            Debug.Log("player executes enemy in silence");                            
-                        } else
-                        {
-                            knockback.apply(enemy.rb, ForceMode2D.Force, attackForce, 0);
-                            enemy.GetComponent<EnemyHealthController>().DamageEnemy(attackDamage);
-                        }
-                            
-                    }
-
-                    Collider2D hitBoss = Physics2D.OverlapBox(attackSensorPos, attackSensorSize, 0f, LayerMask.GetMask("Boss"));
-                    if (hitBoss != null)
-                    {
-                        Debug.Log("Player attacks a boss");
-                        BossHealthController enemy = hitBoss.GetComponentInParent<BossHealthController>();
-                        enemy.TakeDamage(attackDamage);
-                        /*
-                        if (enemy.isReadyForExecute)
-                        {
-                            enemyHealth.ExecuteEnemy();
-                            Debug.Log("player executes enemy in silence");
-
-                            GameManager.Instance.harvestScore.AddExecution(ExecutionScore.Type.silence);
-                        }
-                        else
-                        {
-                            enemy.GetComponent<EnemyHealthController>().DamageEnemy(attackDamage);
-                        }
-                        */
-                    }
-
-                    nextAttackCountdown = attackTimer;
-                }
+                //attack now applied during animation event                
             }
 
             // Toggle disguise with Q
@@ -454,6 +402,72 @@ public class PlayerController : MonoBehaviour
     public void AnimationAttackTriggerTest()
     {
         Debug.Log("play the players attack animation here");
+    }
+
+    public void AnimationAttackSwingTrigger(AnimationEvent animEvent)
+    {
+        //add attack damage delay so we can't just spam attack
+        if (standing.activeSelf)
+        {
+            Debug.Log("Player attacks");
+            Vector2 direction = Vector2.right * Mathf.Sign(transform.localScale.x);
+            attackSensorPos = (Vector2)transform.position + direction + new Vector2(0, attackSensorOffset.y);
+            //Instantiate(shotToFire, shotOrigin.position, shotOrigin.rotation).moveDir = new Vector2(transform.localScale.x, 0);
+            Collider2D hit = Physics2D.OverlapBox(attackSensorPos, attackSensorSize, 0f, LayerMask.GetMask("Enemy"));
+
+            //hit and hit boss conditions should be replaced with enemy tags or an identifier in their gameObject we can query
+            if (hit != null)
+            {
+                Debug.Log("Player attacks an enemy");
+                EnemyPatroller enemy = hit.GetComponent<EnemyPatroller>();
+                EnemyHealthController enemyHealth = enemy.GetComponent<EnemyHealthController>();
+
+                Vector2 attackForce = isFacingLeft ? new Vector2(-knockbackForce.x, knockbackForce.y) : knockbackForce;
+
+                if (enemy.isReadyForExecute)
+                {
+
+                    //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce * knockbackExecuteMultiplier, 0);
+                    enemy.Knockback(ForceMode2D.Force, attackForce * knockbackExecuteMultiplier);
+
+                    enemyHealth.ExecuteEnemy();
+                    Debug.Log("player executes enemy in silence");
+                }
+                else
+                {
+                    //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce, 0);
+                    enemy.Knockback(ForceMode2D.Force, attackForce);
+                    enemy.GetComponent<EnemyHealthController>().DamageEnemy(attackDamage);
+                }
+
+            }
+
+            Collider2D hitBoss = Physics2D.OverlapBox(attackSensorPos, attackSensorSize, 0f, LayerMask.GetMask("Boss"));
+            if (hitBoss != null)
+            {
+                Debug.Log("Player attacks a boss");
+                BossHealthController enemy = hitBoss.GetComponentInParent<BossHealthController>();
+                enemy.TakeDamage(attackDamage);
+                /*
+                if (enemy.isReadyForExecute)
+                {
+                    enemyHealth.ExecuteEnemy();
+                    Debug.Log("player executes enemy in silence");
+
+                    GameManager.Instance.harvestScore.AddExecution(ExecutionScore.Type.silence);
+                }
+                else
+                {
+                    enemy.GetComponent<EnemyHealthController>().DamageEnemy(attackDamage);
+                }
+                */
+            }
+        }
+    }
+
+    public void AnimationAttackCompleteTrigger(AnimationEvent animEvent)
+    {
+
     }
 
     public void ShowAfterImage()
@@ -622,6 +636,20 @@ public class PlayerController : MonoBehaviour
     {
         //enemyController.DeactivateExecuteHalo();
         //enemyController.isReadyForExecute = false;
+    }
+
+    //TODO: make this consistent with enemy, maybe us interface or abstract
+    public void KnockbackSelf(ForceMode2D forceType, Vector2 knockbackForce)
+    {
+        knockback.apply(rb, forceType, knockbackForce, 0);
+    }
+
+    public void KnockbackOpponent()
+    {
+        //call enemy to knock back?
+        //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce, 0);
+        //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce * knockbackExecuteMultiplier, 0);
+
     }
 
     private void OnDrawGizmosSelected()

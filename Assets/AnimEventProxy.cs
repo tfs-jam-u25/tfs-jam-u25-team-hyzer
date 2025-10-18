@@ -15,4 +15,16 @@ public class AnimEventProxy : MonoBehaviour
         Debug.Log("animeventproxy - play the players attack animation here");
         pc.AnimationAttackTrigger(animEvent);
     }
+
+    public void AnimationAttackSwingTrigger(AnimationEvent animEvent)
+    {
+        Debug.Log("animeventproxy - sync any effects that start at the end of the players swing here");
+        pc.AnimationAttackSwingTrigger(animEvent);
+    }
+
+    public void AnimationAttackCompleteTrigger(AnimationEvent animEvent)
+    {
+        Debug.Log("animeventproxy - play any effects that start at the end of the players attack animation here");
+        pc.AnimationAttackCompleteTrigger(animEvent);
+    }
 }

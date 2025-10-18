@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 2979733052262787675}
   - component: {fileID: 6407944761886116034}
   - component: {fileID: 1167848457292621907}
+  - component: {fileID: -4277313874161850873}
   - component: {fileID: -8918568901429948596}
   - component: {fileID: 7458184448804725710}
   m_Layer: 15
@@ -295,10 +296,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalHealth: 3
+  maxHealth: 3
   deathEffect: {fileID: 2729702811300156565, guid: 6ae73a5e267b4ae44a7a59ec490531da, type: 3}
   audioSource: {fileID: 7458184448804725710}
   deathSound: {fileID: 8300000, guid: eccb3b0e73e8f2a48b8e2853a5fca032, type: 3}
   executeSound: {fileID: 8300000, guid: 731cbcf3483d39040ac1c5b3722d1628, type: 3}
+  hitDelay: 0.25
+  isHittable: 1
 --- !u!50 &2979733052262787675
 Rigidbody2D:
   serializedVersion: 5
@@ -394,6 +398,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4277313874161850873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5439958984768624442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cac3c43f9246b74b9e208875e548352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectDuration: 0
 --- !u!114 &-8918568901429948596
 MonoBehaviour:
   m_ObjectHideFlags: 0
