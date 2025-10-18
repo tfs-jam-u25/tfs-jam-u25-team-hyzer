@@ -157,6 +157,7 @@ public class HideableObject : MonoBehaviour, IInteractable
 
     private IEnumerator FadeAlpha(float targetAlpha)
     {
+        Debug.Log("player hiding - try to fade");
         Color c = objectSprite.color;
         while (!Mathf.Approximately(c.a, targetAlpha))
         {
