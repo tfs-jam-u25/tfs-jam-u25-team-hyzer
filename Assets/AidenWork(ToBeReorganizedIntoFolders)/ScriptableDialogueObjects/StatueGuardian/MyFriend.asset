@@ -17,6 +17,10 @@ MonoBehaviour:
     text: What brings you to this old Watcher's haunt?
     portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
     voiceClip: {fileID: 0}
+  - speakerName: Reaper
+    text: I've been sent here for the Harvest.....
+    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    voiceClip: {fileID: 0}
   - speakerName: Watcher of the Castle
     text: Nevermind. My friend, the Keeper is no longer with us. His spirit has been
       stolen.
