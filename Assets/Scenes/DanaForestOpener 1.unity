@@ -770,17 +770,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1131003660467236497, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3370493218078219417, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
       propertyPath: m_Name
       value: Statue
-      objectReference: {fileID: 0}
-    - target: {fileID: 3370493218078219417, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6487084507991486669, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -825,10 +817,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3370493218078219417, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 915095635}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
 --- !u!1 &314325330
 GameObject:
@@ -65545,21 +65534,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2150139491693960237, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2793151728575050005, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
       propertyPath: m_Name
       value: BrokenStatue
-      objectReference: {fileID: 0}
-    - target: {fileID: 2793151728575050005, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261168621591742383, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8939599806953536814, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66140,23 +66117,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2100114897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &915095630 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3370493218078219417, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
-  m_PrefabInstance: {fileID: 254613304}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &915095635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 915095630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d26ae4ae924c55a4585b0139d0659b11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &959731106
 GameObject:
   m_ObjectHideFlags: 0
