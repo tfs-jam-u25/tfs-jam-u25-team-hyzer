@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8939599806953536814}
   - component: {fileID: 3731107752880255631}
   - component: {fileID: 2817566839470341916}
+  - component: {fileID: 5261168621591742383}
+  - component: {fileID: 2150139491693960237}
   m_Layer: 16
   m_Name: BrokenStatue
   m_TagString: Untagged
@@ -96,6 +98,32 @@ MonoBehaviour:
   hiddenAlpha: 0.6
   fadeSpeed: 1
   smokeEffectPrefab: {fileID: 0}
+--- !u!114 &5261168621591742383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793151728575050005}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26ae4ae924c55a4585b0139d0659b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2150139491693960237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793151728575050005}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85488bc7fb8ad4043ae4f1eb2de17085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues: []
+  npcID: NPC_Villager_01
 --- !u!1 &5382156976114611923
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078af4cba15394a46953dc9add841154, type: 3}
+  m_Name: MyFriend
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerName: Watcher of the Castle
+    text: What brings you to this old Watcher's haunt?
+    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    voiceClip: {fileID: 0}
+  - speakerName: Watcher of the Castle
+    text: Nevermind. My friend, the Keeper is no longer with us. His spirit has been
+      stolen.
+    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    voiceClip: {fileID: 0}
+  - speakerName: Watcher of the Castle
+    text: Retieve his soul, make him whole, and I will watch over you in times of
+      great need.
+    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    voiceClip: {fileID: 0}

@@ -97,7 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6487084507991486669}
   - component: {fileID: 8337283320195514234}
+  - component: {fileID: 3030388479186257804}
   - component: {fileID: 2947551179911417895}
+  - component: {fileID: 1131003660467236497}
   m_Layer: 16
   m_Name: Statue
   m_TagString: Untagged
@@ -167,6 +169,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.1200562, y: 4.040127}
   m_EdgeRadius: 0
+--- !u!114 &3030388479186257804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370493218078219417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26ae4ae924c55a4585b0139d0659b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2947551179911417895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,3 +197,18 @@ MonoBehaviour:
   hiddenAlpha: 0.6
   fadeSpeed: 1
   smokeEffectPrefab: {fileID: 0}
+--- !u!114 &1131003660467236497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370493218078219417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85488bc7fb8ad4043ae4f1eb2de17085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - {fileID: 11400000, guid: 4d0b324c8693cd64683db42099856055, type: 2}
+  npcID: CastleWatcher_01

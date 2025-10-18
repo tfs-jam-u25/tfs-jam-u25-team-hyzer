@@ -67212,14 +67212,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Statue
       objectReference: {fileID: 0}
-    - target: {fileID: 5978921363143343625, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5978921363143343625, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6487084507991486669, guid: 91475afd93fe8f64dab499f66f968a5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 282.98
@@ -107416,14 +107408,6 @@ PrefabInstance:
     - target: {fileID: 2793151728575050005, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
       propertyPath: m_Name
       value: BrokenStatue
-      objectReference: {fileID: 0}
-    - target: {fileID: 7634048461781315682, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7634048461781315682, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8939599806953536814, guid: abb9d48ae1555eb4380782dd06c10016, type: 3}
       propertyPath: m_LocalPosition.x
