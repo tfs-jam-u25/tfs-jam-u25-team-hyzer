@@ -1314,7 +1314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.057649493
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1703,7 +1703,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -991181039
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 6853316077166303748, guid: f23d0233b7758c44da75527a24dcf90d, type: 3}
   m_Color: {r: 0.3018868, g: 0.1723033, b: 0.1723033, a: 1}
@@ -3604,7 +3604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.057649493
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4069,7 +4069,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -991181039
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 1.78125, y: 1.625, z: 0}
@@ -25933,7 +25933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.057649493
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -130491,7 +130491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.057649493
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalRotation.w

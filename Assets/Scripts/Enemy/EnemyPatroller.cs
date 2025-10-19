@@ -27,6 +27,14 @@ public class EnemyPatroller : MonoBehaviour
 
     public PlayerController PC;
 
+    [Header("Hit Reaction Settings")]
+    public float stunDuration = 0.5f;
+    public GameObject bloodEffectPrefab;
+
+    private bool isStunned = false;
+    private bool isDead = false;
+    private float stunTimer = 0f;
+
     public enum EnemyState { Feared, Patrol, Wait, Attack }
     public EnemyState currentState = EnemyState.Wait;
     public EnemyState previousState = EnemyState.Wait;
@@ -44,22 +52,41 @@ public class EnemyPatroller : MonoBehaviour
             patrolPoint.SetParent(null);
         }
 
-        if(isReadyForHarvest)
+        if (isReadyForHarvest)
         {
             ActivateHarvestHalo();
         }
 
         knockback = gameObject.AddComponent<Knockback>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (patrolPoints.Length == 0)
+        // Update stun timer
+        if (isStunned)
         {
-            throw new System.Exception("Enemy instance has no Patrol Points assigned");
+            stunTimer -= Time.deltaTime;
+            if (stunTimer <= 0f)
+            {
+                isStunned = false;
+            }
         }
+
+        // Cancel movement if stunned or dead
+        if (isDead || isStunned)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            anim.SetFloat("speed", 0);
+            return;
+        }
+
+        PatrolLogic();
+    }
+
+    private void PatrolLogic()
+    {
+        if (patrolPoints.Length == 0) return;
 
         // Check if enemy is far enough from target point
         if (Mathf.Abs(transform.position.x - patrolPoints[currentPoint].position.x) > distanceThreshold)
@@ -74,9 +101,7 @@ public class EnemyPatroller : MonoBehaviour
             // transform.rotation = (direction > 0) ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
 
             // Smooth rotation:
-            Quaternion targetRot = (direction > 0)
-                ? Quaternion.Euler(0f, 0f, 0f)
-                : Quaternion.Euler(0f, 180f, 0f);
+            Quaternion targetRot = (direction > 0) ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * 10f);
 
             // Handle vertical difference (jump to reach next point if needed)
@@ -84,30 +109,27 @@ public class EnemyPatroller : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             }
+
+            // Set walking animation
+            anim.SetFloat("speed", Mathf.Abs(rb.linearVelocity.x));
         }
         else
         {
-            // Stop horizontal movement
+            // Stop at patrol point
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
 
-            // Wait before moving to next point
+            // Set idle animation (speed = 0)
+            anim.SetFloat("speed", 0f);
+
             waitCounter -= Time.deltaTime;
-            if (waitCounter < 0)
+            if (waitCounter <= 0)
             {
                 waitCounter = waitAtPoints;
                 currentPoint++;
-
-                if (currentPoint >= patrolPoints.Length)
-                {
-                    currentPoint = 0;
-                }
+                if (currentPoint >= patrolPoints.Length) currentPoint = 0;
             }
         }
-
-        // Update animator with movement speed
-        anim.SetFloat("speed", Mathf.Abs(rb.linearVelocity.x));
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -128,14 +150,12 @@ public class EnemyPatroller : MonoBehaviour
                     currentState = EnemyState.Feared;
                     Debug.Log("Runaway my man");
                 }
-
-            } 
+            }
             else if (currentState == EnemyState.Feared)
             {
                 currentState = previousState;
                 //TODO: Set a fear cooldown Timer, add a countdown
             }
-
         }
     }
 
@@ -150,7 +170,6 @@ public class EnemyPatroller : MonoBehaviour
                     currentState = previousState;
                     Debug.Log("Runaway my man");
                 }
-
             }
         }
 
@@ -174,9 +193,10 @@ public class EnemyPatroller : MonoBehaviour
     {
         harvestHalo.color = haloDefaultColour;
     }
+
     private void OnDrawGizmos()
     {
-        if(isReadyForHarvest)
+        if (isReadyForHarvest)
         {
             Gizmos.color = debugHaloColour;
             Vector3 pos = transform.position + Vector3.up * debugHaloHeight;
@@ -184,8 +204,83 @@ public class EnemyPatroller : MonoBehaviour
         }
     }
 
-    public void Knockback(ForceMode2D forceType, Vector2 knockbackForce)
+    // Public method to apply knockback (matches your Knockback component signature)
+    public void ApplyKnockback(ForceMode2D forceType, Vector2 knockbackForce)
     {
-        knockback.apply(rb, forceType, knockbackForce, 0);        
+        if (knockback != null && rb != null)
+        {
+            knockback.Apply(rb, knockbackForce, forceType);
+        }
+    }
+
+    // Called when enemy is hit
+    public void TakeHit(Vector2 knockbackForce, ForceMode2D forceType = ForceMode2D.Impulse)
+    {
+        if (isDead || isStunned) return;
+
+        isStunned = true;
+        stunTimer = stunDuration;
+
+        // Spawn blood effect with direction
+        if (bloodEffectPrefab)
+        {
+            // Determine direction based on knockback force
+            float direction = Mathf.Sign(knockbackForce.x);
+
+            GameObject blood = Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
+
+            // Flip the blood effect if hit from the right (so blood flies left)
+            if (direction < 0)
+            {
+                blood.transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            // Optional: If your blood effect uses a particle system or rigidbody, you can also apply velocity
+            Rigidbody2D bloodRb = blood.GetComponent<Rigidbody2D>();
+            if (bloodRb != null)
+            {
+                bloodRb.linearVelocity = new Vector2(direction * 3f, 2f); // Adjust speed as needed
+            }
+
+            // Optional: If using particle system, rotate it
+            ParticleSystem ps = blood.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                var main = ps.main;
+                main.startRotation = direction > 0 ? 0 : Mathf.PI; // 180 degrees if hit from right
+            }
+        }
+
+        // Apply knockback using the Knockback component
+        ApplyKnockback(forceType, knockbackForce);
+
+        // Play hit animation
+        anim.SetTrigger("Hit");
+    }
+
+
+    // Called on death
+    public void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        // Immediately stop all movement
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic; // freeze physics immediately
+
+        // Stop stun so it doesn't interfere
+        isStunned = false;
+
+        // Set animator parameters
+        anim.SetFloat("speed", 0f); // Make sure walk animation stops
+        anim.ResetTrigger("Hit"); // Clear any pending hit triggers
+
+        // Trigger death animation
+        anim.SetTrigger("Dead");
+
+        // Disable collider so player doesn't collide during death
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
     }
 }
