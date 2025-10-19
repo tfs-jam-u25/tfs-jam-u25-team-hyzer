@@ -414,34 +414,30 @@ public class PlayerController : MonoBehaviour
             attackSensorPos = (Vector2)transform.position + direction + new Vector2(0, attackSensorOffset.y);
             //Instantiate(shotToFire, shotOrigin.position, shotOrigin.rotation).moveDir = new Vector2(transform.localScale.x, 0);
             Collider2D hit = Physics2D.OverlapBox(attackSensorPos, attackSensorSize, 0f, LayerMask.GetMask("Enemy"));
-
             //hit and hit boss conditions should be replaced with enemy tags or an identifier in their gameObject we can query
             if (hit != null)
             {
                 Debug.Log("Player attacks an enemy");
+                EnemyHealthController enemyHealth = hit.GetComponent<EnemyHealthController>();
                 EnemyPatroller enemy = hit.GetComponent<EnemyPatroller>();
-                EnemyHealthController enemyHealth = enemy.GetComponent<EnemyHealthController>();
-
                 Vector2 attackForce = isFacingLeft ? new Vector2(-knockbackForce.x, knockbackForce.y) : knockbackForce;
 
-                if (enemy.isReadyForExecute)
+                if (enemyHealth != null)
                 {
-
-                    //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce * knockbackExecuteMultiplier, 0);
-                    enemy.Knockback(ForceMode2D.Force, attackForce * knockbackExecuteMultiplier);
-
-                    enemyHealth.ExecuteEnemy();
-                    Debug.Log("player executes enemy in silence");
+                    if (enemy != null && enemy.isReadyForExecute)
+                    {
+                        //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce * knockbackExecuteMultiplier, 0);
+                        enemyHealth.DamageEnemy(attackDamage, attackForce * knockbackExecuteMultiplier, ForceMode2D.Force);
+                        enemyHealth.ExecuteEnemy();
+                        Debug.Log("player executes enemy in silence");
+                    }
+                    else
+                    {
+                        //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce, 0);
+                        enemyHealth.DamageEnemy(attackDamage, attackForce, ForceMode2D.Force);
+                    }
                 }
-                else
-                {
-                    //knockback.apply(enemy.rb, ForceMode2D.Force, attackForce, 0);
-                    enemy.Knockback(ForceMode2D.Force, attackForce);
-                    enemy.GetComponent<EnemyHealthController>().DamageEnemy(attackDamage);
-                }
-
             }
-
             Collider2D hitBoss = Physics2D.OverlapBox(attackSensorPos, attackSensorSize, 0f, LayerMask.GetMask("Boss"));
             if (hitBoss != null)
             {
@@ -453,7 +449,6 @@ public class PlayerController : MonoBehaviour
                 {
                     enemyHealth.ExecuteEnemy();
                     Debug.Log("player executes enemy in silence");
-
                     GameManager.Instance.harvestScore.AddExecution(ExecutionScore.Type.silence);
                 }
                 else
@@ -641,7 +636,7 @@ public class PlayerController : MonoBehaviour
     //TODO: make this consistent with enemy, maybe us interface or abstract
     public void KnockbackSelf(ForceMode2D forceType, Vector2 knockbackForce)
     {
-        knockback.apply(rb, forceType, knockbackForce, 0);
+        knockback.Apply(rb, knockbackForce, forceType);
     }
 
     public void KnockbackOpponent()

@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4116881428140949265}
   - component: {fileID: 597407112720666403}
   m_Layer: 15
-  m_Name: AnimationSheet_Character_0
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,8 +105,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1140819939
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 3713219614965599903, guid: ab58585a335c9a946b8fcdd32ffc1f00, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -220,7 +220,6 @@ GameObject:
   - component: {fileID: 7946379293298709223}
   - component: {fileID: 2979733052262787675}
   - component: {fileID: 6407944761886116034}
-  - component: {fileID: 1167848457292621907}
   - component: {fileID: -4277313874161850873}
   - component: {fileID: -8918568901429948596}
   - component: {fileID: 7458184448804725710}
@@ -240,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 5439958984768624442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 270.89383, y: -5.244194, z: 0.057649493}
+  m_LocalPosition: {x: 270.89383, y: -5.244194, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -266,7 +265,7 @@ MonoBehaviour:
   - {fileID: 3214902174558406441}
   - {fileID: 3606279034812894411}
   - {fileID: 9023416465319478863}
-  moveSpeed: 0
+  moveSpeed: 3
   waitAtPoints: 0
   distanceThreshold: 0.2
   jumpForce: 0
@@ -279,8 +278,10 @@ MonoBehaviour:
   haloExecuteColour: {r: 0.2577311, g: 0.8773585, b: 0.07035423, a: 1}
   haloDefaultColour: {r: 1, g: 0.45499295, b: 0, a: 0}
   rb: {fileID: 2979733052262787675}
-  anim: {fileID: 1167848457292621907}
+  anim: {fileID: 597407112720666403}
   PC: {fileID: 0}
+  stunDuration: 0.5
+  bloodEffectPrefab: {fileID: 2729702811300156565, guid: 924a7969f7ceb7b44bd15579e0825697, type: 3}
   currentState: 2
   previousState: 2
 --- !u!114 &7946379293298709223
@@ -297,10 +298,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHealth: 3
   maxHealth: 3
-  deathEffect: {fileID: 2729702811300156565, guid: 6ae73a5e267b4ae44a7a59ec490531da, type: 3}
+  deathEffect: {fileID: 2729702811300156565, guid: 4170b0fe409f64145b4a4317e03ac368, type: 3}
   audioSource: {fileID: 7458184448804725710}
   deathSound: {fileID: 8300000, guid: eccb3b0e73e8f2a48b8e2853a5fca032, type: 3}
   executeSound: {fileID: 8300000, guid: 731cbcf3483d39040ac1c5b3722d1628, type: 3}
+  hitSound: {fileID: 0}
   hitDelay: 0.25
   isHittable: 1
 --- !u!50 &2979733052262787675
@@ -364,7 +366,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.9463675}
+  m_Offset: {x: 0, y: 0.97115934}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -374,30 +376,8 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.7870774}
+  m_Size: {x: 1, y: 1.7374938}
   m_EdgeRadius: 0
---- !u!95 &1167848457292621907
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5439958984768624442}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 83df553e50245b646a4b6657e770cf1c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &-4277313874161850873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cac3c43f9246b74b9e208875e548352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 0
+  effectDuration: 1
 --- !u!114 &-8918568901429948596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +634,10 @@ PrefabInstance:
     - target: {fileID: 5798004778553317395, guid: b4dc89f2f2d419d478f1dd31273313ea, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798004778553317395, guid: b4dc89f2f2d419d478f1dd31273313ea, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5798004778553317395, guid: b4dc89f2f2d419d478f1dd31273313ea, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
