@@ -566,6 +566,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
+      objectReference: {fileID: 0}
     - target: {fileID: 4568419866902725924, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_LocalPosition.x
       value: 343.07
@@ -622,6 +634,18 @@ PrefabInstance:
     - target: {fileID: 1138784413646678097, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_Name
       value: Barrel (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
       objectReference: {fileID: 0}
     - target: {fileID: 4568419866902725924, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1623,6 +1647,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
+      objectReference: {fileID: 0}
     - target: {fileID: 4568419866902725924, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_LocalPosition.x
       value: 271.48
@@ -1679,6 +1715,18 @@ PrefabInstance:
     - target: {fileID: 1138784413646678097, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_Name
       value: Barrel (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
       objectReference: {fileID: 0}
     - target: {fileID: 4568419866902725924, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -129535,6 +129583,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
+      objectReference: {fileID: 0}
     - target: {fileID: 4568419866902725924, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_LocalPosition.x
       value: 318.12
@@ -129591,6 +129651,18 @@ PrefabInstance:
     - target: {fileID: 1138784413646678097, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: m_Name
       value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957303694216141511, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
       objectReference: {fileID: 0}
     - target: {fileID: 3677663340604962354, guid: c5fa8bc708ca759419c8a0a68aba9d59, type: 3}
       propertyPath: objectSprite
@@ -129688,6 +129760,18 @@ PrefabInstance:
     - target: {fileID: 2759790621993743699, guid: c6c29869da470424b8f91f0e11e1619a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6853987514562516917, guid: c6c29869da470424b8f91f0e11e1619a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6853987514562516917, guid: c6c29869da470424b8f91f0e11e1619a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6853987514562516917, guid: c6c29869da470424b8f91f0e11e1619a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
       objectReference: {fileID: 0}
     - target: {fileID: 7431842111932511484, guid: c6c29869da470424b8f91f0e11e1619a, type: 3}
       propertyPath: m_Name

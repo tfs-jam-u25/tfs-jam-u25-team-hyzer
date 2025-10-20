@@ -293,7 +293,7 @@ MonoBehaviour:
   rb: {fileID: 2979733052262787675}
   anim: {fileID: 597407112720666403}
   PC: {fileID: 0}
-  stunDuration: 0.5
+  stunDuration: 0.3
   bloodEffectPrefab: {fileID: 2729702811300156565, guid: 924a7969f7ceb7b44bd15579e0825697, type: 3}
   weight: 1
   currentState: 2
