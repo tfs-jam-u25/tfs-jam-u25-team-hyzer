@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 3327709157540924177}
   - component: {fileID: 4116881428140949265}
   - component: {fileID: 597407112720666403}
+  - component: {fileID: 5934577945806537188}
   m_Layer: 15
   m_Name: Sprite
   m_TagString: Untagged
@@ -141,6 +142,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5934577945806537188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320139331075596011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb8ef2207c80c34ab7a1b55262edb2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3750817334576496677
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +295,7 @@ MonoBehaviour:
   PC: {fileID: 0}
   stunDuration: 0.5
   bloodEffectPrefab: {fileID: 2729702811300156565, guid: 924a7969f7ceb7b44bd15579e0825697, type: 3}
+  weight: 1
   currentState: 2
   previousState: 2
 --- !u!114 &7946379293298709223

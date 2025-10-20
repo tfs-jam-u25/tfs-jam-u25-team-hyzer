@@ -31,6 +31,7 @@ public class EnemyPatroller : MonoBehaviour
     public float stunDuration = 0.5f;
     public GameObject bloodEffectPrefab;
 
+    [SerializeField] private float weight = 1f;
     private bool isStunned = false;
     private bool isDead = false;
     private float stunTimer = 0f;
@@ -58,6 +59,26 @@ public class EnemyPatroller : MonoBehaviour
         }
 
         knockback = gameObject.AddComponent<Knockback>();
+
+        // Try to find the Player by tag first
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            PC = playerObj.GetComponent<PlayerController>();
+            if (PC == null)
+            {
+                Debug.LogWarning($"{name}: Found Player tagged object but no PlayerController component on it!");
+            }
+        }
+        else
+        {
+            // fallback, just in case tag is missing or player not spawned yet
+            PC = FindFirstObjectByType<PlayerController>();
+            if (PC == null)
+            {
+                Debug.LogWarning($"{name}: Could not find any Player tagged object or PlayerController in scene!");
+            }
+        }
     }
 
     // Update is called once per frame
@@ -74,11 +95,17 @@ public class EnemyPatroller : MonoBehaviour
         }
 
         // Cancel movement if stunned or dead
-        if (isDead || isStunned)
+        if (isDead)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             anim.SetFloat("speed", 0);
             return;
+        }
+
+        if (isStunned)
+        {
+            anim.SetFloat("speed", 0);
+            return; // but don't zero velocity
         }
 
         PatrolLogic();
@@ -256,6 +283,23 @@ public class EnemyPatroller : MonoBehaviour
 
         // Play hit animation
         anim.SetTrigger("Hit");
+    }
+
+    // Method to apply pushback based on weight
+    public virtual void ApplyPushbackImpulse()
+    {
+        if (rb == null) return;
+
+        // Pushback direction is away from the player (hit direction)
+        Vector2 pushDirection = (transform.position - PC.transform.position).normalized;
+        pushDirection.y = 0;
+
+        // Apply force based on weight
+        float pushStrength = 10.0f / weight;
+        rb.AddForce(pushDirection * pushStrength, ForceMode2D.Impulse);
+
+        // Debug log to track pushback
+        Debug.Log($"Pushback Applied: Direction {pushDirection}, Strength {pushStrength}");
     }
 
 
