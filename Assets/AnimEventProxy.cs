@@ -3,11 +3,19 @@ using UnityEngine;
 public class AnimEventProxy : MonoBehaviour
 {
     private PlayerController pc;
+    private EnemyPatroller ep;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         pc = gameObject.GetComponentInParent<PlayerController>(); //or ref from Game Manager
+        ep = gameObject.GetComponentInParent<EnemyPatroller>(); 
+    }
+
+    public void AnimationApplyKnockback ()
+    {
+        Debug.Log("animeventproxy - cultist knockback impulse applied here");
+        ep.ApplyPushbackImpulse();
     }
 
     public void AnimationAttackTrigger(AnimationEvent animEvent)

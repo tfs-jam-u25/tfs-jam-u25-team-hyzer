@@ -234,10 +234,10 @@ public class DialogueManager : MonoBehaviour
         // ✅ Re-show interaction prompt if still in range of this NPC
         if (currentNPC != null && InteractionPrompt.Instance != null)
         {
-            IInteractable interactable = currentNPC.GetComponent<IInteractable>();
+            Interactable interactable = currentNPC.GetComponent<Interactable>();
             if (interactable != null)
             {
-                InteractionPrompt.Instance.Show(interactable.GetOptions());
+                InteractionPrompt.Instance.Show(interactable.GetInteractions(), currentNPC.transform);
             }
         }
 

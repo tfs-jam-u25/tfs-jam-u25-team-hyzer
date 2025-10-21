@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
+    [SerializeField] private PlayerInteractionController interactionController;
 
     [Header("Movement Settings")]
     public float baseMoveSpeed = 8;
@@ -517,24 +518,40 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Disguise;
         disguiseMode = DisguiseMode.Normal;
         disguiseTimer = disguiseDuration;
+
         normalCharacter.SetActive(false);
         disguisedCharacter.SetActive(true);
-        GameObject smoke = Instantiate(smokeBomb, transform.position, Quaternion.identity);
 
-        Destroy(smoke, 1f); // destroy smoke after 1 second
+        // Turn off player interaction
+        if (interactionController != null)
+        {
+            // Hide current prompt (if visible)
+            InteractionPrompt.Instance?.Hide();
+
+            // Disable the interaction script entirely
+            interactionController.enabled = false;
+        }
+
+        GameObject smoke = Instantiate(smokeBomb, transform.position, Quaternion.identity);
+        Destroy(smoke, 1f);
     }
 
     void ExitDisguise()
     {
         currentState = PlayerState.Regular;
         disguiseMode = DisguiseMode.Normal;
-        //spriteRenderer.color = Color.white;
 
         normalCharacter.SetActive(true);
         disguisedCharacter.SetActive(false);
-        GameObject smoke = Instantiate(smokeBomb, transform.position, Quaternion.identity);
 
-        Destroy(smoke, 1f); // destroy smoke after 1 second
+        // Re-enable player interaction
+        if (interactionController != null)
+        {
+            interactionController.enabled = true;
+        }
+
+        GameObject smoke = Instantiate(smokeBomb, transform.position, Quaternion.identity);
+        Destroy(smoke, 1f);
     }
 
     void EnterUltraDisguise()

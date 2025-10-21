@@ -1,7 +1,6 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-public class NPCDialogue : MonoBehaviour, IInteractable
+public class NPCDialogue : MonoBehaviour
 {
     [Header("Dialogue Data (Progression)")]
     public DialogueData[] dialogues;
@@ -17,45 +16,31 @@ public class NPCDialogue : MonoBehaviour, IInteractable
             Debug.LogError($"NPCDialogue on {gameObject.name}: npcID is empty! Dialogue progress won't persist.", this);
         }
 
-        Debug.Log($"[NPCDialogue] {npcID} initialized in scene with {dialogues.Length} dialogues");
+        Debug.Log($"[NPCDialogue] {npcID} initialized with {dialogues.Length} dialogues");
     }
 
-    public List<InteractionOption> GetOptions()
+    /// <summary>
+    /// Call this via the Interactable component UnityEvent
+    /// </summary>
+    public void Talk()
     {
-        return new List<InteractionOption>
-        {
-            new InteractionOption { key = KeyCode.E, description = "Talk" }
-        };
-    }
-
-    public void Interact(KeyCode key, GameObject player)
-    {
-        if (key != KeyCode.E) return;
-
         if (DialogueManager.Instance.CurrentlyActive)
         {
             DialogueManager.Instance.NextLine();
+            return;
         }
-        else if (dialogues != null && dialogues.Length > 0)
+
+        if (dialogues == null || dialogues.Length == 0) return;
+
+        int currentDialogueIndex = DialogueManager.Instance.GetNPCDialogueIndex(npcID);
+        currentDialogueIndex = Mathf.Clamp(currentDialogueIndex, 0, dialogues.Length - 1);
+
+        DialogueData dialogueToPlay = dialogues[currentDialogueIndex];
+
+        if (dialogueToPlay != null)
         {
-            // Get the current dialogue index from DialogueManager
-            int currentDialogueIndex = DialogueManager.Instance.GetNPCDialogueIndex(npcID);
-
-            // Clamp to valid range
-            if (currentDialogueIndex >= dialogues.Length)
-            {
-                currentDialogueIndex = dialogues.Length - 1;
-                Debug.Log($"[NPCDialogue] {npcID} clamped to final dialogue");
-            }
-
-            DialogueData dialogueToPlay = dialogues[currentDialogueIndex];
-
-            if (dialogueToPlay != null)
-            {
-                Debug.Log($"[NPCDialogue] {npcID} starting dialogue {currentDialogueIndex}");
-                // NEW: Pass the total number of dialogues
-                DialogueManager.Instance.StartDialogue(dialogueToPlay, this, npcID, dialogues.Length);
-            }
+            Debug.Log($"[NPCDialogue] {npcID} starting dialogue {currentDialogueIndex}");
+            DialogueManager.Instance.StartDialogue(dialogueToPlay, this, npcID, dialogues.Length);
         }
     }
 }

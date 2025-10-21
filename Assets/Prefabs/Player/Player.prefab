@@ -746,6 +746,7 @@ MonoBehaviour:
   disguiseMode: 0
   rb: {fileID: 1900656974738982761}
   spriteRenderer: {fileID: 4699763006952298908}
+  interactionController: {fileID: 7229989938494506729}
   baseMoveSpeed: 8
   currentMoveSpeed: 8
   disguiseSpeed: 2.5
@@ -850,7 +851,6 @@ MonoBehaviour:
   interactableMask:
     serializedVersion: 2
     m_Bits: 65536
-  showDebugLogs: 1
 --- !u!114 &396427175934959690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,9 +863,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28dc9df5adf3dda47a5954938a52b80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hiddenLayerName: HiddenPlayer
-  playerSpriteTransform: {fileID: 2894353349020723816}
   playerSpriteRenderer: {fileID: 4699763006952298908}
+  hiddenLayerName: HiddenPlayer
+  showDebugLogs: 1
 --- !u!114 &7534569380719998709
 MonoBehaviour:
   m_ObjectHideFlags: 0

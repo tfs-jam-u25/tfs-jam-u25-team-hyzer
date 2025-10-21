@@ -8,6 +8,10 @@ public class InteractionPrompt : MonoBehaviour
 
     [SerializeField] private GameObject root;
     [SerializeField] private TMP_Text promptText;
+    [SerializeField] private Vector3 worldOffset = new Vector3(0f, 0f, 0f);
+    [SerializeField] private Camera mainCamera;
+
+    private Transform target;
 
     void Awake()
     {
@@ -16,11 +20,14 @@ public class InteractionPrompt : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         root.SetActive(false);
+        if (mainCamera == null)
+            mainCamera = Camera.main;
     }
 
-    public void Show(List<InteractionOption> options)
+    public void Show(List<InteractionOption> options, Transform target)
     {
         if (options == null || options.Count == 0)
         {
@@ -28,17 +35,36 @@ public class InteractionPrompt : MonoBehaviour
             return;
         }
 
+        this.target = target;
+
         promptText.text = "";
         foreach (var opt in options)
-        {
-            promptText.text += $"[{opt.key}] {opt.description}\n";
-        }
+            promptText.text += $"[{opt.key}] {opt.promptText}\n";
 
-        // Remove trailing newline
         promptText.text = promptText.text.TrimEnd('\n');
-
         root.SetActive(true);
     }
 
-    public void Hide() => root.SetActive(false);
+    public void Hide()
+    {
+        root.SetActive(false);
+        target = null;
+    }
+
+    void LateUpdate()
+    {
+        if (target == null || !root.activeSelf)
+            return;
+
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null)
+                return;
+        }
+
+        Vector3 worldPos = target.position + worldOffset;
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
+        transform.position = screenPos;
+    }
 }

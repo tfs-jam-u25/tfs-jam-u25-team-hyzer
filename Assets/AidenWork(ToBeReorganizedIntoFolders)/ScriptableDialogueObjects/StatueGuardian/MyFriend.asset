@@ -15,19 +15,19 @@ MonoBehaviour:
   lines:
   - speakerName: Watcher of the Castle
     text: What brings you to this old Watcher's haunt?
-    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    portrait: {fileID: -469398985, guid: 487b6b9c8454eee4186f591c5b530a73, type: 3}
     voiceClip: {fileID: 0}
   - speakerName: Reaper
     text: I've been sent here for the Harvest.....
-    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    portrait: {fileID: -1698313499, guid: ab58585a335c9a946b8fcdd32ffc1f00, type: 3}
     voiceClip: {fileID: 0}
   - speakerName: Watcher of the Castle
     text: Nevermind. My friend, the Keeper is no longer with us. His spirit has been
       stolen.
-    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    portrait: {fileID: -469398985, guid: 487b6b9c8454eee4186f591c5b530a73, type: 3}
     voiceClip: {fileID: 0}
   - speakerName: Watcher of the Castle
     text: Retieve his soul, make him whole, and I will watch over you in times of
       great need.
-    portrait: {fileID: -3728225624541989930, guid: 2cc1469c0161a664d9c5f96dcdeeb157, type: 3}
+    portrait: {fileID: -469398985, guid: 487b6b9c8454eee4186f591c5b530a73, type: 3}
     voiceClip: {fileID: 0}

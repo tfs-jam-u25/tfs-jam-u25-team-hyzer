@@ -1,163 +1,135 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerInteractionController : MonoBehaviour
 {
     [Header("Interaction Sensor")]
-    [SerializeField] private Vector2 sensorSize = new Vector2(1f, 1f);
-    [SerializeField] private Vector2 sensorOffset = Vector2.zero; // Offset from player pivot
+    [SerializeField] private Vector2 sensorSize = new(1f, 1f);
+    [SerializeField] private Vector2 sensorOffset = Vector2.zero;
     [SerializeField] private LayerMask interactableMask;
-
-    [Header("Debug")]
-    [SerializeField] private bool showDebugLogs = true;
 
     private IInteractable currentInteractable;
     private Collider2D currentCollider;
-    private PlayerController player;
-    private PlayerController.PlayerState lastKnownState;
-
-    void Start()
-    {
-        player = GameManager.Instance.PlayerInstance;
-        if (player == null)
-        {
-            Debug.LogError("[PlayerInteractionController] Player instance is null!");
-        }
-        else
-        {
-            lastKnownState = player.currentState;
-        }
-    }
 
     void FixedUpdate()
     {
-        // Refresh player reference if needed
-        if (player == null)
-            player = GameManager.Instance.PlayerInstance;
-
-        // Early exit if player not Regular — clears any existing prompts
-        if (player == null || player.currentState != PlayerController.PlayerState.Regular)
-        {
-            ClearCurrentInteractable();
-            if (showDebugLogs && player != null)
-                Debug.Log($"Player not in Regular state (current: {player.currentState}), cleared interactable");
-            return;
-        }
-
-        // Calculate interaction box position
-        Vector2 sensorPos = (Vector2)transform.position + sensorOffset;
-
-        // Check for interactable in range
-        Collider2D hit = Physics2D.OverlapBox(sensorPos, sensorSize, 0f, interactableMask);
-
-        if (hit != null)
-        {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
-
-            if (interactable != null && currentCollider != hit)
-            {
-                // New interactable detected
-                ClearCurrentInteractable();
-
-                currentInteractable = interactable;
-                currentCollider = hit;
-
-                // Show prompt if there are options
-                List<InteractionOption> options = interactable.GetOptions();
-                if (options != null && options.Count > 0)
-                {
-                    InteractionPrompt.Instance?.Show(options);
-                    if (showDebugLogs)
-                    {
-                        Debug.Log($"Showing interaction prompt for {hit.gameObject.name} with {options.Count} options");
-                    }
-                }
-            }
-        }
-        else
-        {
-            // Nothing in range
-            ClearCurrentInteractable();
-        }
+        DetectInteractable();
     }
 
     void Update()
     {
-        // Check for state changes every frame for immediate response
-        if (player != null)
-        {
-            if (player.currentState != lastKnownState)
-            {
-                if (showDebugLogs)
-                    Debug.Log($"Player state changed from {lastKnownState} to {player.currentState}");
-
-                lastKnownState = player.currentState;
-
-                // If changing away from Regular, clear immediately
-                if (player.currentState != PlayerController.PlayerState.Regular)
-                {
-                    ClearCurrentInteractable();
-                    return;
-                }
-            }
-        }
-
-        // Only allow interactions if we have a valid interactable and player is Regular
-        if (currentInteractable == null || player == null || player.currentState != PlayerController.PlayerState.Regular)
+        if (currentInteractable == null)
             return;
 
-        List<InteractionOption> options = currentInteractable.GetOptions();
-        if (options == null || options.Count == 0) return;
-
-        foreach (var option in options)
+        var options = currentInteractable.GetInteractions();
+        foreach (var opt in options)
         {
-            if (Input.GetKeyDown(option.key))
+            if (Input.GetKeyDown(opt.key))
             {
-                if (showDebugLogs)
-                    Debug.Log($"Interaction key pressed: {option.key} on {currentCollider?.gameObject.name}");
+                currentInteractable.TryTriggerInteraction(opt.key);
 
-                currentInteractable.Interact(option.key, gameObject);
-                break; // Only allow one interaction per frame
+                // Refresh prompt in case interactions changed after trigger
+                RefreshPrompt();
+                break;
             }
         }
     }
 
-    private void ClearCurrentInteractable()
+    void OnEnable()
     {
-        if (currentInteractable == null && currentCollider == null) return;
+        // Re-scan for interactables when we come back online
+        DetectInteractable();
 
-        if (showDebugLogs)
-            Debug.Log($"Clearing interactable: {currentCollider?.gameObject.name ?? "null"}");
-
-        // Stop dialogue if leaving NPC mid-conversation
-        if (currentCollider != null)
+        // If we're already overlapping something, refresh the prompt manually
+        if (currentInteractable != null)
         {
-            NPCDialogue npc = currentCollider.GetComponent<NPCDialogue>();
-            if (npc != null && DialogueManager.Instance != null && DialogueManager.Instance.CurrentlyActive)
+            RefreshPrompt();
+        }
+    }
+
+    private void DetectInteractable()
+    {
+        Vector2 sensorPos = (Vector2)transform.position + sensorOffset;
+        Collider2D hit = Physics2D.OverlapBox(sensorPos, sensorSize, 0f, interactableMask);
+
+        if (hit != null)
+        {
+            // Only update if we detected a new collider
+            if (currentCollider != hit)
             {
-                if (showDebugLogs)
-                    Debug.Log("Stopping dialogue as player left interactable area");
-                DialogueManager.Instance.StopDialogue(npc);
+                // Look for ANY IInteractable component
+                IInteractable interactable = hit.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    SetCurrentInteractable(interactable, hit);
+                }
             }
         }
+        else
+        {
+            ClearCurrent();
+        }
+    }
 
-        currentInteractable = null;
-        currentCollider = null;
+    private void SetCurrentInteractable(IInteractable interactable, Collider2D collider)
+    {
+        currentInteractable = interactable;
+        currentCollider = collider;
+        RefreshPrompt();
+    }
 
-        // Hide interaction prompt
-        InteractionPrompt.Instance?.Hide();
+    private void RefreshPrompt()
+    {
+        if (currentInteractable != null && currentCollider != null)
+        {
+            List<InteractionOption> options = currentInteractable.GetInteractions();
+
+            // Check if the interactable has a custom prompt position
+            Transform promptTarget = currentCollider.transform;
+
+            // Try to get custom prompt position via interface
+            IPromptPositionable positionable = currentCollider.GetComponent<IPromptPositionable>();
+            if (positionable != null)
+            {
+                promptTarget = positionable.GetPromptPosition();
+            }
+
+            InteractionPrompt.Instance?.Show(options, promptTarget);
+        }
+    }
+
+    void ClearCurrent()
+    {
+        if (currentInteractable != null)
+        {
+            // Notify the interactable that player is leaving range
+            NotifyInteractableExit(currentCollider);
+
+            currentInteractable = null;
+            currentCollider = null;
+            InteractionPrompt.Instance?.Hide();
+        }
+    }
+
+    private void NotifyInteractableExit(Collider2D collider)
+    {
+        // Check for any components that need exit notification
+        var exitNotifiables = collider.GetComponents<MonoBehaviour>();
+        foreach (var component in exitNotifiables)
+        {
+            // Check if component has OnPlayerExitRange method
+            if (component is HideableObject hideableObject)
+            {
+                hideableObject.OnPlayerExitRange();
+            }
+            // Add more types here as needed
+        }
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = currentInteractable != null ? Color.green : Color.cyan;
+        Gizmos.color = Color.cyan;
         Vector2 sensorPos = (Vector2)transform.position + sensorOffset;
         Gizmos.DrawWireCube(sensorPos, sensorSize);
-
-        if (currentCollider != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(currentCollider.transform.position, 0.3f);
-        }
     }
 }
