@@ -211,6 +211,11 @@ public class EnemyPatroller : MonoBehaviour
         harvestHalo.enabled = true;
     }
 
+    public void DeactivateHarvestHalo() //TODO: should make this a toggle but in a rush today
+    {
+        harvestHalo.enabled = false;
+    }
+
     public void ActivateExecuteHalo()
     {
         harvestHalo.color = haloExecuteColour;
@@ -319,6 +324,8 @@ public class EnemyPatroller : MonoBehaviour
         // Set animator parameters
         anim.SetFloat("speed", 0f); // Make sure walk animation stops
         anim.ResetTrigger("Hit"); // Clear any pending hit triggers
+
+        DeactivateHarvestHalo();
 
         // Trigger death animation
         anim.SetTrigger("Dead");
