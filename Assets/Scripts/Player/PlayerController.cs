@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour
     public int attackDamage = 1;
     public float attackTimer = 0.25f;
     private float nextAttackCountdown = 0f;
+    public Transform slashSpawnPoint;
+    public GameObject slashPrefab;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -390,13 +392,31 @@ public class PlayerController : MonoBehaviour
 
         HandleStates();
     }
-    
+
     public void AnimationAttackTrigger(AnimationEvent animEvent)
     {
-        Debug.Log("play the players attack animation here");
+        Debug.Log("Play the player's attack animation here");
+
+        // Play sound
         if (fire1Sound != null && audioSource != null)
         {
             audioSource.PlayOneShot(fire1Sound);
+        }
+
+        // Spawn slash effect
+        if (slashPrefab != null && slashSpawnPoint != null)
+        {
+            GameObject slashInstance = Instantiate(slashPrefab, slashSpawnPoint.position, Quaternion.identity);
+
+            // Flip slash based on player facing direction
+            bool facingRight = transform.localScale.x > 0f;
+
+            Vector3 slashScale = slashInstance.transform.localScale;
+            slashScale.x = Mathf.Abs(slashScale.x) * (facingRight ? 1f : -1f);
+            slashInstance.transform.localScale = slashScale;
+
+            // Optionally parent to player if needed
+            // slashInstance.transform.SetParent(transform);
         }
     }
 
