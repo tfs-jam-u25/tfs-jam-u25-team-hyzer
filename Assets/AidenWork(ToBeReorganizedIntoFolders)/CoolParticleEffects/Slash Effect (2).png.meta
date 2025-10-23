@@ -1,40 +1,40 @@
 fileFormatVersion: 2
-guid: 19e0e5094678a6543972ecee6e58d3e3
+guid: 97020573b20b60c4eb97c994605a92ba
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3529870739743547840
-    second: HostileAttackReaper-Sheet_0
+      213: -8435956214606712519
+    second: Slash Effect (2)_0
   - first:
-      213: -3444859843024116383
-    second: HostileAttackReaper-Sheet_1
+      213: 3553351900289712355
+    second: Slash Effect (2)_1
   - first:
-      213: -7758956024962829472
-    second: HostileAttackReaper-Sheet_2
+      213: 7557802355761133784
+    second: Slash Effect (2)_2
   - first:
-      213: -2789691870341651776
-    second: HostileAttackReaper-Sheet_3
+      213: -1351495548369945975
+    second: Slash Effect (2)_3
   - first:
-      213: -4270440519801412079
-    second: HostileAttackReaper-Sheet_4
+      213: 4849270278483720782
+    second: Slash Effect (2)_4
   - first:
-      213: -1149419433325954864
-    second: HostileAttackReaper-Sheet_5
+      213: 381497507554349593
+    second: Slash Effect (2)_5
   - first:
-      213: 8661867204689744376
-    second: HostileAttackReaper-Sheet_6
+      213: 5501024810303255819
+    second: Slash Effect (2)_6
   - first:
-      213: -7206920604378095675
-    second: HostileAttackReaper-Sheet_7
+      213: -3909532601100563656
+    second: Slash Effect (2)_7
   - first:
-      213: -3424631043147235040
-    second: HostileAttackReaper-Sheet_8
+      213: -5259959463055593980
+    second: Slash Effect (2)_8
   - first:
-      213: 7514791868933905180
-    second: HostileAttackReaper-Sheet_9
+      213: -1392175386146906870
+    second: Slash Effect (2)_9
   - first:
-      213: 510881929127312841
-    second: HostileAttackReaper-Sheet_10
+      213: 8814719271232661493
+    second: Slash Effect (2)_10
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -81,7 +81,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,7 +105,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,247 +126,238 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_0
+      name: Slash Effect (2)_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 7
-        width: 30
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 04e5a86a341630fc0800000000000000
-      internalID: -3529870739743547840
+      spriteID: b0dfa9df3d11f6c489bf7cd9107feaa2
+      internalID: -1583395547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_1
+      name: Slash Effect (2)_1
       rect:
         serializedVersion: 2
-        x: 61
-        y: 7
-        width: 25
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1652a8379366130d0800000000000000
-      internalID: -3444859843024116383
+      spriteID: 4bc0bb6e4bb942944af26542294d20bc
+      internalID: 1608218358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_2
+      name: Slash Effect (2)_2
       rect:
         serializedVersion: 2
-        x: 97
-        y: 7
-        width: 34
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 063b630aa96a25490800000000000000
-      internalID: -7758956024962829472
+      spriteID: bc9af4411c0a2724cbcd1e0374007cab
+      internalID: -1496505403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_3
+      name: Slash Effect (2)_3
       rect:
         serializedVersion: 2
-        x: 146
-        y: 7
-        width: 33
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0c2ad7b36060949d0800000000000000
-      internalID: -2789691870341651776
+      spriteID: 85879e2fabab2ed40932c175b501ad22
+      internalID: 1471986585
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_4
+      name: Slash Effect (2)_4
       rect:
         serializedVersion: 2
-        x: 196
-        y: 1
-        width: 44
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1166dc619f85cb4c0800000000000000
-      internalID: -4270440519801412079
+      spriteID: d3c52b756a0e77b4281dbc659898e848
+      internalID: -1221968780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_5
+      name: Slash Effect (2)_5
       rect:
         serializedVersion: 2
-        x: 245
-        y: 20
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0d8fca28d117c00f0800000000000000
-      internalID: -1149419433325954864
+      spriteID: 1d9dc363e4468b24c8e1d09b7504b7a8
+      internalID: -1550416344
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_6
+      name: Slash Effect (2)_6
       rect:
         serializedVersion: 2
-        x: 252
-        y: 1
-        width: 36
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8f153238452253870800000000000000
-      internalID: 8661867204689744376
+      spriteID: f5400786b66a27746b448494e5f83645
+      internalID: -791704888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_7
+      name: Slash Effect (2)_7
       rect:
         serializedVersion: 2
-        x: 294
-        y: 1
-        width: 42
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5cf999be4efdbfb90800000000000000
-      internalID: -7206920604378095675
+      spriteID: 0f1b85a9265d2a14eb7dd60e96f158ab
+      internalID: -1888975123
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_8
+      name: Slash Effect (2)_8
       rect:
         serializedVersion: 2
-        x: 349
-        y: 1
-        width: 33
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 512
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0210f62f5344970d0800000000000000
-      internalID: -3424631043147235040
+      spriteID: 5f44be1ecdcd20a4e88f79482558c2bd
+      internalID: 1770997577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_9
+      name: Slash Effect (2)_9
       rect:
         serializedVersion: 2
-        x: 397
-        y: 2
-        width: 34
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 576
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c1b9cc4c367e94860800000000000000
-      internalID: 7514791868933905180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HostileAttackReaper-Sheet_10
-      rect:
-        serializedVersion: 2
-        x: 445
-        y: 5
-        width: 34
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9cdbcc36864071700800000000000000
-      internalID: 510881929127312841
+      spriteID: ca236ce4f476655419518717b9abc6e6
+      internalID: -1392175386146906870
       vertices: []
       indices: 
       edges: []
@@ -375,7 +366,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 56f469045de39804093cfa1705a925e5
     internalID: 0
     vertices: []
     indices: 
@@ -385,17 +376,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HostileAttackReaper-Sheet_0: -3529870739743547840
-      HostileAttackReaper-Sheet_1: -3444859843024116383
-      HostileAttackReaper-Sheet_10: 510881929127312841
-      HostileAttackReaper-Sheet_2: -7758956024962829472
-      HostileAttackReaper-Sheet_3: -2789691870341651776
-      HostileAttackReaper-Sheet_4: -4270440519801412079
-      HostileAttackReaper-Sheet_5: -1149419433325954864
-      HostileAttackReaper-Sheet_6: 8661867204689744376
-      HostileAttackReaper-Sheet_7: -7206920604378095675
-      HostileAttackReaper-Sheet_8: -3424631043147235040
-      HostileAttackReaper-Sheet_9: 7514791868933905180
+      Slash Effect (2)_0: -1583395547
+      Slash Effect (2)_1: 1608218358
+      Slash Effect (2)_2: -1496505403
+      Slash Effect (2)_3: 1471986585
+      Slash Effect (2)_4: -1221968780
+      Slash Effect (2)_5: -1550416344
+      Slash Effect (2)_6: -791704888
+      Slash Effect (2)_7: -1888975123
+      Slash Effect (2)_8: 1770997577
+      Slash Effect (2)_9: -1392175386146906870
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
