@@ -59,11 +59,11 @@ TagManager:
   - name: Enemy
     uniqueID: 1140819939
     locked: 0
-  - name: Ground
-    uniqueID: 3303786257
-    locked: 0
   - name: VisualEffect
     uniqueID: 186820899
+    locked: 0
+  - name: Ground
+    uniqueID: 3303786257
     locked: 0
   m_RenderingLayers:
   - Default
