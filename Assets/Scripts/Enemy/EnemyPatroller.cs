@@ -155,9 +155,10 @@ public class EnemyPatroller : MonoBehaviour
     {
         //TODO: add a generic timer class
         if (recoveryTimer <= 0)
-        {
+        {            
             SetPreviousState(currentState);
-            currentState = EnemyState.Patrol;
+            InitReadyTimer();
+            currentState = EnemyState.Ready;
 
             return;
         }
@@ -474,17 +475,22 @@ public class EnemyPatroller : MonoBehaviour
 
                 previousState = currentState;
                 currentState = EnemyState.Ready;
-                readyTimer = readyDelay;
+                InitReadyTimer();
             
             }
                 
         }
     }
 
+    void InitReadyTimer()
+    {
+        readyTimer = readyDelay;
+    }
+
     void HandleReadyState()
     {
         Debug.Log("States: Enemy ready");
-        readyTimer -= Time.deltaTime;
+        readyTimer -= Time.fixedDeltaTime;
         if (readyTimer <= 0f)
         {
             float distance = Vector2.Distance(transform.position, PC.transform.position);
