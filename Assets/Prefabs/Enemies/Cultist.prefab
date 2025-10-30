@@ -349,6 +349,20 @@ MonoBehaviour:
   debugHaloColour: {r: 0.9245283, g: 0.3916573, b: 0.056692798, a: 1}
   haloExecuteColour: {r: 0.2577311, g: 0.8773585, b: 0.07035423, a: 1}
   haloDefaultColour: {r: 1, g: 0.45499295, b: 0, a: 0}
+  attackRange: 1.5
+  recoveryDelay: 1
+  recoveryTimer: 0
+  readyDelay: 1
+  readyTimer: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  hiddenPlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  detectionRange: 5
+  attackBoxSize: {x: 2, y: 1.75}
+  attackOffset: {x: 1.52, y: 0.96}
   rb: {fileID: 2979733052262787675}
   anim: {fileID: 597407112720666403}
   PC: {fileID: 0}

@@ -5,6 +5,7 @@ public class AnimEventProxy : MonoBehaviour
     private PlayerController pc;
     private EnemyPatroller ep;
 
+    //TODO: make this genericly typed between player and enemy controllers, consider use of an Interface
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,5 +35,12 @@ public class AnimEventProxy : MonoBehaviour
     {
         Debug.Log("animeventproxy - play any effects that start at the end of the players attack animation here");
         pc.AnimationAttackCompleteTrigger(animEvent);
+    }
+
+    public void EnemyAttackCompleteTrigger(AnimationEvent animEvent)
+    {
+        Debug.Log("animeventproxy - play any effects that start at the end of the enemies attack animation here");
+        ep.OnAttackComplete(animEvent);
+
     }
 }
