@@ -15,12 +15,15 @@ public class EnemyPatroller : MonoBehaviour
 
     public bool isReadyForHarvest = false;
     public bool isReadyForExecute = false;
+    public float readyForExecuteTimer = 0.0f;
+    public float readyForExecuteDuration = 1.0f;
     public SpriteRenderer harvestHalo;
     public float debugHaloHeight = 0.2f;
     public float debugHaloSize = 0.2f;
     public Color debugHaloColour = Color.red;
     public Color haloExecuteColour = Color.red;
     public Color haloDefaultColour;
+    
 
     public Rigidbody2D rb;
     public Animator anim;
@@ -84,10 +87,26 @@ public class EnemyPatroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
+
+        if (harvestHalo.enabled)
+        {
+            readyForExecuteTimer -= Time.fixedDeltaTime;
+        }
+        
+        if (readyForExecuteTimer <= 0f)
+        {
+            DeactivateExecuteHalo();
+        }
+
         // Update stun timer
         if (isStunned)
         {
-            stunTimer -= Time.deltaTime;
+            stunTimer -= Time.fixedDeltaTime;
             if (stunTimer <= 0f)
             {
                 isStunned = false;
@@ -202,7 +221,8 @@ public class EnemyPatroller : MonoBehaviour
 
         if (GameManager.Instance.PlayerInstance.IsHidden())
         {
-            DeactivateExecuteHalo();
+            //DeactivateExecuteHalo();
+            readyForExecuteTimer = readyForExecuteDuration;
         }
     }
 
