@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Animations;
 
@@ -6,6 +7,7 @@ public class PlayerAnimsController : MonoBehaviour
 {
     private Animator animator;
     public PlayerController pc;
+    private PlayerHider hider; //balanced
 
     private float idleTimer = 3f;
     private float idleThreshold = 3f; // Time in seconds before switching to idle animation
@@ -13,6 +15,7 @@ public class PlayerAnimsController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        hider = GetComponentInParent<PlayerHider>();
         //pc = GetComponent<PlayerController>();
     }
 
@@ -48,14 +51,16 @@ public class PlayerAnimsController : MonoBehaviour
         float verticalVelocity = pc.rb.linearVelocity.y;
         animator.SetFloat("VerticalVelocity", verticalVelocity);
 
-        if (isMoving || Input.GetMouseButtonDown(0))
+        if (isMoving || Input.GetMouseButtonDown(0) || hider.IsHidden)
         {
             idleTimer = 0f; // Reset idle timer when moving
             animator.SetBool("IsIdleLong", true);
         }
         else
         {
+
             idleTimer += Time.deltaTime;
+
 
             if(idleTimer >= idleThreshold)
             {
