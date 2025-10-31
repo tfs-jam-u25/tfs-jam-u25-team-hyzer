@@ -349,7 +349,9 @@ MonoBehaviour:
   debugHaloColour: {r: 0.9245283, g: 0.3916573, b: 0.056692798, a: 1}
   haloExecuteColour: {r: 0.2577311, g: 0.8773585, b: 0.07035423, a: 1}
   haloDefaultColour: {r: 1, g: 0.45499295, b: 0, a: 0}
+  moveToPlayerSpeed: 5
   attackRange: 1.5
+  attackDamage: 1
   recoveryDelay: 1
   recoveryTimer: 0
   readyDelay: 1
@@ -361,16 +363,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectionRange: 5
+  detectionBoxSize: {x: 6, y: 1.72}
+  detectionOffset: {x: 3, y: 1}
   attackBoxSize: {x: 2, y: 1.75}
-  attackOffset: {x: 1.52, y: 0.96}
+  attackOffset: {x: 0.5, y: 1}
+  isFacingRight: 0
   rb: {fileID: 2979733052262787675}
   anim: {fileID: 597407112720666403}
+  attackTriggerName: Attack
+  deathTriggerName: Dead
+  hitTriggerName: Hit
   PC: {fileID: 0}
+  playerHealthController: {fileID: 0}
   stunDuration: 0.3
   bloodEffectPrefab: {fileID: 2729702811300156565, guid: 924a7969f7ceb7b44bd15579e0825697, type: 3}
   weight: 1
   currentState: 2
   previousState: 2
+  isAttacking: 0
 --- !u!114 &7946379293298709223
 MonoBehaviour:
   m_ObjectHideFlags: 0

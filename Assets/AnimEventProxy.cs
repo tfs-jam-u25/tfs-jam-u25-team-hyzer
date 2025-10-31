@@ -37,6 +37,12 @@ public class AnimEventProxy : MonoBehaviour
         pc.AnimationAttackCompleteTrigger(animEvent);
     }
 
+    public void EnemyAnimationAttackSwingTrigger(AnimationEvent animEvent)
+    {
+        Debug.Log("animeventproxy - sync any effects that start at the end of the players swing here");
+        ep.OnAttackSwing(animEvent);
+    }
+
     public void EnemyAttackCompleteTrigger(AnimationEvent animEvent)
     {
         Debug.Log("animeventproxy - play any effects that start at the end of the enemies attack animation here");
