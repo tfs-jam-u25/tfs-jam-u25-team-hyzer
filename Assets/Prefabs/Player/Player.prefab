@@ -118,6 +118,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -139,6 +141,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -273,6 +276,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -294,6 +299,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1275388479
   m_SortingLayer: 2
   m_SortingOrder: 0
@@ -559,6 +565,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -580,6 +588,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 479297309
   m_SortingLayer: 1
   m_SortingOrder: 0
@@ -757,7 +766,7 @@ MonoBehaviour:
   rageDuration: 5
   maxRage: 3
   rageBar: 0
-  disguiseDuration: 10
+  disguiseDuration: 5
   normalCharacter: {fileID: 7294376204420959715}
   disguisedCharacter: {fileID: 1650209097891683368}
   smokeBomb: {fileID: 5817745196967851408}
@@ -773,7 +782,7 @@ MonoBehaviour:
   attackTrigger: {fileID: 3075424183738001384}
   attackSensorSize: {x: 3, y: 1}
   attackDamage: 1
-  attackTimer: 0.4
+  attackTimer: 0.2
   slashSpawnPoint: {fileID: 1610049850848521864}
   slashPrefab: {fileID: 2300377954131920473, guid: bd429dcadcece804f9c20fd480a51316, type: 3}
   audioSource: {fileID: 5095780015746520790}
@@ -798,7 +807,7 @@ MonoBehaviour:
   bomb: {fileID: 608134037809762253, guid: ee1719f7e9e58e84eb03193c03b1e5aa, type: 3}
   canMove: 0
   nextRoomDoorID: 1
-  knockbackForce: {x: 10, y: 3}
+  knockbackForce: {x: 0.5, y: 1}
   knockbackExecuteMultiplier: 3
 --- !u!114 &2854810467094597035
 MonoBehaviour:
@@ -1074,6 +1083,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1095,6 +1106,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1275388479
   m_SortingLayer: 2
   m_SortingOrder: 0
@@ -1301,4 +1313,4 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.49

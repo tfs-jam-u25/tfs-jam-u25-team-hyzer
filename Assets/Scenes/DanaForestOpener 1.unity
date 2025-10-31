@@ -66069,7 +66069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5439958984768624442, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -88484,6 +88484,22 @@ PrefabInstance:
     - target: {fileID: 3075424183738001384, guid: 8ecebdebfaa85f94fb361ebcc275931b, type: 3}
       propertyPath: m_EdgeRadius
       value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819979931699131296, guid: 8ecebdebfaa85f94fb361ebcc275931b, type: 3}
+      propertyPath: attackTimer
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819979931699131296, guid: 8ecebdebfaa85f94fb361ebcc275931b, type: 3}
+      propertyPath: disguiseDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819979931699131296, guid: 8ecebdebfaa85f94fb361ebcc275931b, type: 3}
+      propertyPath: knockbackForce.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819979931699131296, guid: 8ecebdebfaa85f94fb361ebcc275931b, type: 3}
+      propertyPath: knockbackForce.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6075103606357878576, guid: 8ecebdebfaa85f94fb361ebcc275931b, type: 3}
       propertyPath: m_Name
