@@ -352,19 +352,21 @@ MonoBehaviour:
   moveToPlayerSpeed: 5
   attackRange: 1.5
   attackDamage: 1
-  recoveryDelay: 1
+  recoveryDelay: 0.5
   recoveryTimer: 0
-  readyDelay: 1
+  readyDelay: 0.5
   readyTimer: 0
+  playerLayerName: Player
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
+  hiddenPlayerLayerName: HiddenPlayer
   hiddenPlayerLayer:
     serializedVersion: 2
     m_Bits: 0
-  detectionRange: 5
-  detectionBoxSize: {x: 6, y: 1.72}
-  detectionOffset: {x: 3, y: 1}
+  detectionRange: 6
+  detectionBoxSize: {x: 10, y: 1.75}
+  detectionOffset: {x: 4.5, y: 1}
   attackBoxSize: {x: 2, y: 1.75}
   attackOffset: {x: 0.5, y: 1}
   isFacingRight: 0

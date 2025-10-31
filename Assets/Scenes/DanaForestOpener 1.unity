@@ -66063,53 +66063,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: readyDelay
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: isFacingRight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: recoveryDelay
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: attackOffset.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: attackOffset.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: detectionRange
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: detectionOffset.x
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: detectionOffset.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: moveToPlayerSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: detectionBoxSize.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968594867881520790, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
-      propertyPath: detectionBoxSize.y
-      value: 1.75
-      objectReference: {fileID: 0}
     - target: {fileID: 5439958984768624442, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_Name
       value: Cultist (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5439958984768624442, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939498389834917428, guid: cad883aa0bc803b499f10917b7b26fc7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66526,7 +66486,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 858899602594147894, guid: b2f42edb8f198144b9c93b2bc81f6850, type: 3}
       propertyPath: m_Volume
-      value: 0.5
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 6342122171774143343, guid: b2f42edb8f198144b9c93b2bc81f6850, type: 3}
       propertyPath: m_LocalPosition.x

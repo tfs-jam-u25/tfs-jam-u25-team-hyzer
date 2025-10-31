@@ -624,6 +624,16 @@ public class PlayerController : MonoBehaviour
         return hider.IsHidden;
     }
 
+    public bool IsDsguised()
+    {
+        return GetPlayerState() == PlayerState.Disguise;
+    }
+
+    public bool IsHiddenOrIsDisguised()
+    {
+        return IsHidden() || IsDsguised();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(hider.IsHidden && other.gameObject.CompareTag("Enemy"))

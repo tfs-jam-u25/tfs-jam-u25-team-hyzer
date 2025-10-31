@@ -486,7 +486,7 @@ public class EnemyPatroller : MonoBehaviour
     void CheckForPlayer()
     {
         
-        if (currentState != EnemyState.Ready && currentState != EnemyState.Recovery && currentState != EnemyState.MoveToPlayer)
+        if (currentState != EnemyState.Ready && currentState != EnemyState.Recovery && currentState != EnemyState.MoveToPlayer && PC.IsHiddenOrIsDisguised() == false)
         {
             //Debug.Log($"States: IsPlayerInAttackRange - {IsPlayerInAttackRange().ToString()}");            
             //Debug.Log($"States: IsPlayerInDetectionRange - {IsPlayerInDetectionRange().ToString()}");
@@ -556,8 +556,8 @@ public class EnemyPatroller : MonoBehaviour
             //float distance = Vector2.Distance(transform.position, PC.transform.position);
             //if player is still in detection range when ready timer is up...
             Collider2D detectedTarget = BoxCastDetectionRange();
-
-            if (detectedTarget != null)
+            
+            if (detectedTarget != null && PC.IsHiddenOrIsDisguised() == false)
             {
                 SetPreviousState(currentState);
                 Debug.Log("States: ready - starting MoveToPlayer");
@@ -604,15 +604,15 @@ public class EnemyPatroller : MonoBehaviour
             xDistance = target.transform.position.x - transform.position.x;
         }
         
-        if(target != null && dTarget != null)
+        if(target != null && dTarget != null && PC.IsHidden() == false)
         {
             Debug.Log($"States: diff between detection distance and attack distance - {dxDistance} vs {xDistance} - 0 meeans it probably wasn't set. This is ugly.");
         }
         //Debug.Log($"States:  detect player - is {dxDistance} close to {xDistance}");
         //Debug.Log($"States:  attack player - is {xDist} close to {xDistance}");
 
-        Debug.Log($"States: Detection box center: {(Vector2)transform.position + detectionOffset}, size: {detectionBoxSize}");
-        Debug.Log($"States: Attack box center: {(Vector2)transform.position + attackOffset}, size: {attackBoxSize}");
+        //Debug.Log($"States: Detection box center: {(Vector2)transform.position + detectionOffset}, size: {detectionBoxSize}");
+        //Debug.Log($"States: Attack box center: {(Vector2)transform.position + attackOffset}, size: {attackBoxSize}");
         /*
                 if (!dTarget)
                 {
@@ -634,7 +634,7 @@ public class EnemyPatroller : MonoBehaviour
                     currentState = EnemyState.Attack;
                 }
         */
-        if (target != null)
+        if (target != null && PC.IsHiddenOrIsDisguised() == false)
         {
             Debug.Log("States: MoveToPlayer - switch to Attack");
 
@@ -643,7 +643,7 @@ public class EnemyPatroller : MonoBehaviour
             currentState = EnemyState.Attack;
 
         }
-        else if (dTarget != null)
+        else if (dTarget != null && PC.IsHiddenOrIsDisguised() == false)
         {
 
             //Vector2 direction = (PC.transform.position - transform.position).normalized;            
@@ -838,6 +838,15 @@ public class EnemyPatroller : MonoBehaviour
 
     internal void OnAttackSwing(AnimationEvent animEvent)
     {
-        playerHealthController.DamagePlayer(attackDamage);
+        //TODO: #audio #sounds player sword swing sound
+        Collider2D playerHit = BoxCastAttackRange();
+        if (playerHit != null)
+        {
+            playerHealthController.DamagePlayer(attackDamage);
+        } else
+        {
+            //TODO: #audio #sounds play miss sound
+        }
+
     }
 }
