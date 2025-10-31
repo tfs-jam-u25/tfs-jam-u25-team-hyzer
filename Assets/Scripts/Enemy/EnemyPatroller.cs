@@ -124,7 +124,7 @@ public class EnemyPatroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentState != EnemyState.Recovery && currentState != EnemyState.Attack && currentState != EnemyState.Feared)
+        if (currentState != EnemyState.Recovery && currentState != EnemyState.Attack && currentState != EnemyState.Feared && currentState != EnemyState.MoveToPlayer)
         {            
             CheckForPlayer();
         }
@@ -170,6 +170,7 @@ public class EnemyPatroller : MonoBehaviour
             SetPreviousState(currentState);
             InitReadyTimer();
             currentState = EnemyState.Ready;
+            Debug.Log("States: HandleRecoveryState - back to ready state");
 
             return;
         }
@@ -491,6 +492,25 @@ public class EnemyPatroller : MonoBehaviour
             //Debug.Log($"States: IsPlayerInDetectionRange - {IsPlayerInDetectionRange().ToString()}");
             //Debug.Log($"States: IsPlayerInLineOfSight - {IsPlayerInLineOfSight().ToString()}");
             Debug.Log("States: Check for player ....");
+
+            Collider2D detectedPlayer = BoxCastDetectionRange();
+            if (detectedPlayer != null && IsPlayerInLineOfSight())
+            {
+                Debug.Log("States: Player in detection range and line of sight");
+                previousState = currentState;
+                Debug.Log("States: Check for player - back to ready state");
+                currentState = EnemyState.Ready;
+                StopEnemy();
+                InitReadyTimer();
+            } else
+            {
+                Debug.Log("States: Return to Patrol state");
+                //add a wait here first once wait state is implemented
+                previousState = currentState;
+                currentState = EnemyState.Patrol;
+            }
+
+            /*
             if (IsPlayerInAttackRange() && IsPlayerInLineOfSight())
             {
                 Debug.Log("States: Player in attack range and line of sight");
@@ -503,7 +523,8 @@ public class EnemyPatroller : MonoBehaviour
                 Debug.Log("States: Player in detection range and line of sight");
                 previousState = currentState;
                 currentState = EnemyState.Ready;
-                
+                InitReadyTimer();
+
             }
             else if (currentState != EnemyState.Patrol)
             {
@@ -511,7 +532,7 @@ public class EnemyPatroller : MonoBehaviour
                 //add a wait here first once wait state is implemented
                 previousState = currentState;
                 currentState = EnemyState.Patrol;
-            }
+            }*/
         }
 
     }
@@ -532,9 +553,11 @@ public class EnemyPatroller : MonoBehaviour
         readyTimer -= Time.deltaTime;
         if (readyTimer <= 0f)
         {
-            float distance = Vector2.Distance(transform.position, PC.transform.position);
+            //float distance = Vector2.Distance(transform.position, PC.transform.position);
+            //if player is still in detection range when ready timer is up...
+            Collider2D detectedTarget = BoxCastDetectionRange();
 
-            if (distance <= detectionRange)
+            if (detectedTarget != null)
             {
                 SetPreviousState(currentState);
                 Debug.Log("States: ready - starting MoveToPlayer");
@@ -566,37 +589,51 @@ public class EnemyPatroller : MonoBehaviour
         float xDist = PC.transform.position.x - transform.position.x;
         //Debug.Log($"States: MoveToPlayer {xDist} to player - is this within detection range {detectionRange} or attack range {attackRange}");
         //Debug.Log($"States: MoveToPlayer {xDist} to player - is this within detection range {IsPlayerInDetectionRange()} or attack range {IsPlayerInAttackRange()}");
+        float dxDistance = 0f;
+        float xDistance = 0f;
 
         Collider2D dTarget = BoxCastDetectionRange();
-        float dxDistance = dTarget.transform.position.x - transform.position.x;
+        if(dTarget != null)
+        {
+            dxDistance = dTarget.transform.position.x - transform.position.x;
+        }
 
         Collider2D target = BoxCastAttackRange();
-        float xDistance = target.transform.position.x - transform.position.x;
-
+        if(target != null)
+        {
+            xDistance = target.transform.position.x - transform.position.x;
+        }
+        
+        if(target != null && dTarget != null)
+        {
+            Debug.Log($"States: diff between detection distance and attack distance - {dxDistance} vs {xDistance} - 0 meeans it probably wasn't set. This is ugly.");
+        }
         //Debug.Log($"States:  detect player - is {dxDistance} close to {xDistance}");
         //Debug.Log($"States:  attack player - is {xDist} close to {xDistance}");
 
-/*
-        if (!dTarget)
-        {
-            SetPreviousState(currentState);
-            Debug.Log("States: MoveToPlayer - switch to Patrol");
-            currentState = EnemyState.Patrol; //should wait before returning to patrol but keeping it simple for the first iteration
-            return;
-        } else if (dTarget && !target)
-        {
-            Debug.Log("States: MoveToPlayer - charge!");
-            //Vector2 direction = (PC.transform.position - transform.position).normalized;            
-            MoveEnemy(xDistance);
-        } else if (target)
-        {
-            Debug.Log("States: MoveToPlayer - switch to Attack");
-                        
-            SetPreviousState(currentState);
-            rb.linearVelocity = Vector2.zero;
-            currentState = EnemyState.Attack;
-        }
-*/
+        Debug.Log($"States: Detection box center: {(Vector2)transform.position + detectionOffset}, size: {detectionBoxSize}");
+        Debug.Log($"States: Attack box center: {(Vector2)transform.position + attackOffset}, size: {attackBoxSize}");
+        /*
+                if (!dTarget)
+                {
+                    SetPreviousState(currentState);
+                    Debug.Log("States: MoveToPlayer - switch to Patrol");
+                    currentState = EnemyState.Patrol; //should wait before returning to patrol but keeping it simple for the first iteration
+                    return;
+                } else if (dTarget && !target)
+                {
+                    Debug.Log("States: MoveToPlayer - charge!");
+                    //Vector2 direction = (PC.transform.position - transform.position).normalized;            
+                    MoveEnemy(xDistance);
+                } else if (target)
+                {
+                    Debug.Log("States: MoveToPlayer - switch to Attack");
+
+                    SetPreviousState(currentState);
+                    rb.linearVelocity = Vector2.zero;
+                    currentState = EnemyState.Attack;
+                }
+        */
         if (target != null)
         {
             Debug.Log("States: MoveToPlayer - switch to Attack");
@@ -608,13 +645,26 @@ public class EnemyPatroller : MonoBehaviour
         }
         else if (dTarget != null)
         {
-            Debug.Log("States: MoveToPlayer - charge!");
+
             //Vector2 direction = (PC.transform.position - transform.position).normalized;            
-            MoveEnemy(xDistance);
+            //int direction = (int)Mathf.Sign(xDistance);
+            //Debug.Log($"States: MoveToPlayer - charge! {dxDistance}");
+            int direction;
+            if (transform.rotation.y == 0f)
+            {
+                direction = 1;
+            } else
+            {
+                direction = -1;
+            }
+            MoveEnemy(direction);
         }
         else
         {
+            //set a delay before returning to patrol in case player just jumped?
+
             SetPreviousState(currentState);
+            
             Debug.Log("States: MoveToPlayer - switch to Patrol");
             currentState = EnemyState.Patrol; //should wait before returning to patrol but keeping it simple for the first iteration
             return;
@@ -686,6 +736,7 @@ public class EnemyPatroller : MonoBehaviour
     private bool IsPlayerInDetectionRange()
     {
         bool facingRight = transform.rotation.y == 0f; // or use localScale.x > 0
+
         Vector2 dOffset = detectionOffset;
         if (!facingRight)
             dOffset.x *= -1;
@@ -710,7 +761,8 @@ public class EnemyPatroller : MonoBehaviour
     //TODO: make generic box cast function that accepts any box and a layer mask, move to its own class
     private Collider2D BoxCastDetectionRange()
     {
-        bool facingRight = transform.rotation.y == 0f; // or use localScale.x > 0
+        bool facingRight = Mathf.Approximately(transform.eulerAngles.y, 0f);
+        //bool facingRight = transform.rotation.y == 0f; // or use localScale.x > 0
         Vector2 dOffset = detectionOffset;
         if (!facingRight)
             dOffset.x *= -1;
@@ -722,7 +774,8 @@ public class EnemyPatroller : MonoBehaviour
 
     private Collider2D BoxCastAttackRange()
     {
-        bool facingRight = transform.rotation.y == 0f; // or use localScale.x > 0
+        bool facingRight = Mathf.Approximately(transform.eulerAngles.y, 0f);
+        //bool facingRight = transform.rotation.y == 0f; // or use localScale.x > 0
         Vector2 offset = attackOffset;
         if (!facingRight)
             offset.x *= -1;
@@ -743,6 +796,7 @@ public class EnemyPatroller : MonoBehaviour
     void OnDrawGizmosSelected()
     {
 
+        /*
         bool facingRight = transform.rotation.y == 0f;
 
         Gizmos.color = Color.red;
@@ -760,6 +814,26 @@ public class EnemyPatroller : MonoBehaviour
 
         Vector2 dBoxCenter = (Vector2)transform.position + dOffset;
         Gizmos.DrawWireCube(dBoxCenter, detectionBoxSize);
+        */
+
+        bool facingRight = Mathf.Approximately(transform.eulerAngles.y, 0f);
+
+        Vector2 dOffset = detectionOffset;
+        Vector2 aOffset = attackOffset;
+
+        if (!facingRight)
+        {
+            dOffset.x *= -1;
+            aOffset.x *= -1;
+        }
+
+        Vector2 dBoxCenter = (Vector2)transform.position + dOffset;
+        Vector2 aBoxCenter = (Vector2)transform.position + aOffset;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(dBoxCenter, detectionBoxSize);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(aBoxCenter, attackBoxSize);
     }
 
     internal void OnAttackSwing(AnimationEvent animEvent)
