@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class EnemyPatroller : MonoBehaviour
 
     public bool isReadyForHarvest = false;
     public bool isReadyForExecute = false;
+    public float readyForExecuteTimer = 0.0f;
+    public float readyForExecuteDuration = 1.0f;
     public SpriteRenderer harvestHalo;
     public float debugHaloHeight = 0.2f;
     public float debugHaloSize = 0.2f;
@@ -22,10 +25,33 @@ public class EnemyPatroller : MonoBehaviour
     public Color haloExecuteColour = Color.red;
     public Color haloDefaultColour;
 
+    [Header("Attack Settings")]
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float recoveryDelay = 1.0f;
+    [SerializeField] private float recoveryTimer = 0f;
+    [SerializeField] private float readyDelay = 1.0f;
+    [SerializeField] private float readyTimer = 0f;
+
+    [Header("AI Detection")]
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private LayerMask hiddenPlayerLayer;
+    [SerializeField] private float detectionRange = 5f;
+    [SerializeField] private Vector2 attackBoxSize = new Vector2(4f, 1f);
+    [SerializeField] private Vector2 attackOffset =  new Vector2(2f, 0f);
+
+    [Header("AI behaviour")]
+
+
+    public bool isFacingRight;
+
     public Rigidbody2D rb;
     public Animator anim;
+    public string attackTriggerName = "Attack";
+    public string deathTriggerName = "Dead";
+    public string hitTriggerName = "Hit";
 
-    public PlayerController PC;
+
+    [HideInInspector] public PlayerController PC; //does this need to be public for child scripts? if not, make private
 
     [Header("Hit Reaction Settings")]
     public float stunDuration = 0.5f;
@@ -36,9 +62,10 @@ public class EnemyPatroller : MonoBehaviour
     private bool isDead = false;
     private float stunTimer = 0f;
 
-    public enum EnemyState { Feared, Patrol, Wait, Attack }
-    public EnemyState currentState = EnemyState.Wait;
-    public EnemyState previousState = EnemyState.Wait;
+    public enum EnemyState { Feared, Patrol, Wait, Attack, Recovery, Ready, MoveToPlayer }
+    public EnemyState currentState = EnemyState.Patrol;
+    public EnemyState previousState = EnemyState.Patrol;
+    public bool isAttacking = false;
 
     private Knockback knockback;
 
@@ -79,15 +106,82 @@ public class EnemyPatroller : MonoBehaviour
                 Debug.LogWarning($"{name}: Could not find any Player tagged object or PlayerController in scene!");
             }
         }
+
+        isFacingRight = GetFacingDirection();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (currentState != EnemyState.Recovery && currentState != EnemyState.Attack && currentState != EnemyState.Feared)
+        {            
+            CheckForPlayer();
+        }
+
+        switch (currentState)
+        {
+            //public enum EnemyState { Feared, Patrol, Wait, Attack, Recovery, Ready, MoveToPlayer }
+            case EnemyState.Feared:
+                //TODO: handle state
+                break;
+
+            case EnemyState.Patrol:
+                PatrolLogic();
+                break;
+
+            case EnemyState.Wait:
+                HandleReadyState(); //what is wait going to be?
+                break;
+
+            case EnemyState.Recovery:
+                HandleRecoveryState();
+                break;
+
+            case EnemyState.Ready:
+                HandleReadyState();
+                break;
+
+            case EnemyState.MoveToPlayer:
+                MoveTowardPlayer();
+                break;
+
+            case EnemyState.Attack:
+                HandleAttack();
+                break;
+        }
+    }
+
+    private void HandleRecoveryState()
+    {
+        //TODO: add a generic timer class
+        if (recoveryTimer <= 0)
+        {            
+            SetPreviousState(currentState);
+            InitReadyTimer();
+            currentState = EnemyState.Ready;
+
+            return;
+        }
+
+        recoveryTimer -= Time.fixedDeltaTime;
+            
+    }
+
+    private void FixedUpdate()
+    {
+
+        if (harvestHalo.enabled && readyForExecuteTimer > 0f)
+        {
+            readyForExecuteTimer -= Time.fixedDeltaTime;
+        } else if (readyForExecuteTimer <= 0f)
+        {
+            DeactivateExecuteHalo();            
+        }
+
         // Update stun timer
         if (isStunned)
         {
-            stunTimer -= Time.deltaTime;
+            stunTimer -= Time.fixedDeltaTime;
             if (stunTimer <= 0f)
             {
                 isStunned = false;
@@ -108,7 +202,10 @@ public class EnemyPatroller : MonoBehaviour
             return; // but don't zero velocity
         }
 
-        PatrolLogic();
+        //Attempting to handl via states now
+        //PatrolLogic();
+
+        isFacingRight = GetFacingDirection();
     }
 
     private void PatrolLogic()
@@ -120,35 +217,12 @@ public class EnemyPatroller : MonoBehaviour
         {
             float direction = Mathf.Sign(patrolPoints[currentPoint].position.x - transform.position.x);
 
-            // Apply velocity
-            rb.linearVelocity = new Vector2(moveSpeed * direction, rb.linearVelocity.y);
-
-            // --- ROTATION LOGIC ---
-            // Instant snap rotation:
-            // transform.rotation = (direction > 0) ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
-
-            // Smooth rotation:
-            Quaternion targetRot = (direction > 0) ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * 10f);
-
-            // Handle vertical difference (jump to reach next point if needed)
-            if (transform.position.y < patrolPoints[currentPoint].position.y - 0.5f && rb.linearVelocity.y < 0.1f)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            }
-
-            // Set walking animation
-            anim.SetFloat("speed", Mathf.Abs(rb.linearVelocity.x));
+            MoveEnemy(direction);
         }
         else
-        {
-            // Stop at patrol point
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        {            
+            StartWait(); //Update to use wait state?
 
-            // Set idle animation (speed = 0)
-            anim.SetFloat("speed", 0f);
-
-            waitCounter -= Time.deltaTime;
             if (waitCounter <= 0)
             {
                 waitCounter = waitAtPoints;
@@ -156,6 +230,47 @@ public class EnemyPatroller : MonoBehaviour
                 if (currentPoint >= patrolPoints.Length) currentPoint = 0;
             }
         }
+    }
+
+    private void MoveEnemy(float direction)
+    {
+        // Apply velocity
+        rb.linearVelocity = new Vector2(moveSpeed * direction, rb.linearVelocity.y);
+
+        // --- ROTATION LOGIC ---
+        // Instant snap rotation:
+        transform.rotation = (direction > 0) ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
+
+        // Smooth rotation: - broke due to unity security update, half the sprite goes missing when rotating
+        //Quaternion targetRot = (direction > 0) ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * 10f);     
+
+        // Handle vertical difference (jump to reach next point if needed)
+        if (transform.position.y < patrolPoints[currentPoint].position.y - 0.5f && rb.linearVelocity.y < 0.1f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+
+        // Set walking animation
+        anim.SetFloat("speed", Mathf.Abs(rb.linearVelocity.x));
+    }
+
+    private void StopEnemy()
+    {
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
+        // Set idle animation (speed = 0)
+        anim.SetFloat("speed", 0f);
+
+    }
+
+    private void StartWait() // wait for patrol
+    {
+        StopEnemy();
+        previousState = currentState;
+        currentState = EnemyState.Wait;
+
+        waitCounter -= Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -202,13 +317,19 @@ public class EnemyPatroller : MonoBehaviour
 
         if (GameManager.Instance.PlayerInstance.IsHidden())
         {
-            DeactivateExecuteHalo();
+            //DeactivateExecuteHalo();
+            readyForExecuteTimer = readyForExecuteDuration;
         }
     }
 
     public void ActivateHarvestHalo()
     {
         harvestHalo.enabled = true;
+    }
+
+    public void DeactivateHarvestHalo() //TODO: should make this a toggle but in a rush today
+    {
+        harvestHalo.enabled = false;
     }
 
     public void ActivateExecuteHalo()
@@ -320,6 +441,8 @@ public class EnemyPatroller : MonoBehaviour
         anim.SetFloat("speed", 0f); // Make sure walk animation stops
         anim.ResetTrigger("Hit"); // Clear any pending hit triggers
 
+        DeactivateHarvestHalo();
+
         // Trigger death animation
         anim.SetTrigger("Dead");
 
@@ -327,4 +450,146 @@ public class EnemyPatroller : MonoBehaviour
         Collider2D col = GetComponent<Collider2D>();
         if (col != null) col.enabled = false;
     }
+
+    //AI handling
+    //can and should probably be in another script as a re-usable component but dropping here for now
+
+    void CheckForPlayer()
+    {
+        //may wish to use OverlapBox for initial detection while using BoxCast once player is detected
+        bool playerDetected = Physics2D.OverlapBox(
+            GetAttackAndDetectionBox(),
+            attackBoxSize,
+            0,
+            playerLayer);
+
+        if (playerDetected)
+        {
+            if (Physics2D.Linecast(transform.position, PC.transform.position, 0)) //TODO: should not be hard coded to default layer - figure out what is best here
+            {
+
+                previousState = currentState;
+                currentState = EnemyState.Patrol;               
+
+            } else if (currentState != EnemyState.Attack) {
+
+                previousState = currentState;
+                currentState = EnemyState.Ready;
+                InitReadyTimer();
+            
+            }
+                
+        }
+    }
+
+    void InitReadyTimer()
+    {
+        readyTimer = readyDelay;
+    }
+
+    void HandleReadyState()
+    {
+        Debug.Log("States: Enemy ready");
+        readyTimer -= Time.fixedDeltaTime;
+        if (readyTimer <= 0f)
+        {
+            float distance = Vector2.Distance(transform.position, PC.transform.position);
+
+            if (distance <= detectionRange)
+            {
+                SetPreviousState(currentState);
+                Debug.Log("States: ready - starting MoveToPlayer");
+                currentState = EnemyState.MoveToPlayer;
+            }                
+            else
+            {
+                SetPreviousState(currentState);
+                Debug.Log("States: ready - returning to patrol");
+                currentState = EnemyState.Patrol;
+            }
+                
+        }
+    }
+
+    void SetPreviousState(EnemyState oldState)
+    {
+        if (previousState != oldState)
+        {
+            previousState = oldState;
+        }
+    }
+
+    void MoveTowardPlayer()
+    {
+        //this would move calculate Y into distance, not needed right now
+        //float distance = Vector2.Distance(transform.position, PC.transform.position);
+
+        Debug.Log("States: MoveToPlayer");
+        float xDistance = Mathf.Sign(PC.transform.position.x - transform.position.x);
+        if (xDistance > detectionRange)
+        {
+            SetPreviousState(currentState);
+            Debug.Log("States: MoveToPlayer - switch to Patrol");
+            currentState = EnemyState.Patrol; //should wait before returning to patrol but keeping it simple for the first iteration
+            return;
+        }
+
+        //Vector2 direction = (PC.transform.position - transform.position).normalized;
+        MoveEnemy(xDistance);
+
+        Debug.Log($"check xDistance to player");
+        if (Mathf.Abs(xDistance) <= attackRange)
+        {
+            Debug.Log("States: MoveToPlayer - switch to Attack");
+            SetPreviousState(currentState);
+            rb.linearVelocity = Vector2.zero;
+            currentState = EnemyState.Attack;
+        }
+    }
+
+    void HandleAttack()
+    {
+        Debug.Log($"States: HandleAttack - isAttacking = {isAttacking.ToString()}");
+
+        if (!isAttacking)
+        {
+            // Insert your attack animation or hitbox logic here
+            Debug.Log("Enemy attacks!");
+            // Optionally return to Idle or MoveToPlayer afterward
+            anim.SetTrigger(attackTriggerName);
+            isAttacking = true;
+        }
+
+
+    }
+
+    public void OnAttackComplete(AnimationEvent animEvent)
+    {
+        Debug.Log("States: AttackComplete - Switch to Recovery");
+        SetPreviousState(currentState);
+        currentState = EnemyState.Recovery;
+        recoveryTimer = recoveryDelay;
+        isAttacking = false;
+    }
+
+    private bool GetFacingDirection()
+    {
+        return transform.rotation.y == 0f;        
+    }
+
+    private Vector2 GetAttackAndDetectionBox()
+    {
+        Vector2 facingSign = isFacingRight ? Vector2.right : Vector2.left;
+
+        return (Vector2)transform.position + new Vector2(attackOffset.x * facingSign.x, attackOffset.y);    
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        bool facingRight = transform.rotation.y == 0f;
+        Vector3 offset = new Vector3(attackOffset.x * (facingRight ? 1 : -1), attackOffset.y, 0);
+        Gizmos.DrawWireCube(transform.position + offset, attackBoxSize);
+    }
+
 }

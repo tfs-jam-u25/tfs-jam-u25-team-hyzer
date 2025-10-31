@@ -554,7 +554,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -562,6 +561,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &1317934592
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -236, y: 83}
+  m_AnchoredPosition: {x: -236, y: 65.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1401203344
@@ -765,7 +765,13 @@ MonoBehaviour:
     Uqaili, Colton Reeds, Aiden Witjes, Jonathan Anthony
 
     Artist/Level Designer:
-    Dana Minnis'
+    Dana Minnis
+
+
+    Special Thanks
+
+    TFS Game Jam crew, Joshua Smith, Hisham
+    Ata, Danny Tran'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6f3bf377ad7fd44fad26639d0697ff5, type: 2}
   m_sharedMaterial: {fileID: 6275139695996085520, guid: d6f3bf377ad7fd44fad26639d0697ff5, type: 2}

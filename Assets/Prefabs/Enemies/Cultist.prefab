@@ -31,6 +31,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 359631180930495195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1260009480879233081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4561724351398736711}
+  - component: {fileID: 8121689964624767807}
+  m_Layer: 15
+  m_Name: AttackHitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4561724351398736711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260009480879233081}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.87, y: 0.95, z: 0}
+  m_LocalScale: {x: 0.7, y: 1.75, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5939498389834917428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8121689964624767807
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260009480879233081}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2842582, y: 1, z: 1}
+  m_Center: {x: 0.14212906, y: 0, z: 0}
 --- !u!1 &3320139331075596011
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,6 +138,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -106,6 +161,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1140819939
   m_SortingLayer: 3
   m_SortingOrder: 0
@@ -259,6 +315,7 @@ Transform:
   - {fileID: 3327709157540924177}
   - {fileID: 359631180930495195}
   - {fileID: 7056676915368989164}
+  - {fileID: 4561724351398736711}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2968594867881520790
@@ -284,12 +341,28 @@ MonoBehaviour:
   jumpForce: 0
   isReadyForHarvest: 1
   isReadyForExecute: 0
+  readyForExecuteTimer: 0
+  readyForExecuteDuration: 1
   harvestHalo: {fileID: 3967997413479163115}
   debugHaloHeight: 0.2
   debugHaloSize: 0.2
   debugHaloColour: {r: 0.9245283, g: 0.3916573, b: 0.056692798, a: 1}
   haloExecuteColour: {r: 0.2577311, g: 0.8773585, b: 0.07035423, a: 1}
   haloDefaultColour: {r: 1, g: 0.45499295, b: 0, a: 0}
+  attackRange: 1.5
+  recoveryDelay: 1
+  recoveryTimer: 0
+  readyDelay: 1
+  readyTimer: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  hiddenPlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  detectionRange: 5
+  attackBoxSize: {x: 2, y: 1.75}
+  attackOffset: {x: 1.52, y: 0.96}
   rb: {fileID: 2979733052262787675}
   anim: {fileID: 597407112720666403}
   PC: {fileID: 0}
@@ -436,7 +509,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3865089946948564014, guid: 77186d8627f4ebc49b75dbdcc122fdc8, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 731cbcf3483d39040ac1c5b3722d1628, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 731cbcf3483d39040ac1c5b3722d1628, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

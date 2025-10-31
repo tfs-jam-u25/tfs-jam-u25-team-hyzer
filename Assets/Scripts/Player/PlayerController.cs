@@ -488,7 +488,8 @@ public class PlayerController : MonoBehaviour
 
     public void ShowAfterImage()
     {
-        SpriteRenderer image = Instantiate(afterImageSR, transform.position, transform.rotation);
+        //SpriteRenderer image = Instantiate(afterImageSR, transform.position, transform.rotation);
+        SpriteRenderer image = Instantiate(afterImageSR, sr.transform.position, sr.transform.rotation);
         image.sprite = sr.sprite;
         image.transform.localScale = transform.localScale;
         image.color = afterImageColor;
