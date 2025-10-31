@@ -27,7 +27,8 @@ MonoBehaviour:
     portrait: {fileID: -469398985, guid: 487b6b9c8454eee4186f591c5b530a73, type: 3}
     voiceClip: {fileID: 0}
   - speakerName: Watcher of the Castle
-    text: Retieve his soul, make him whole, and I will watch over you in times of
-      great need.
+    text: When the next update is released, retieve his soul, make him whole, and
+      I will watch over you in times of great need. Alas the developers have not
+      made haste on creating this quest.
     portrait: {fileID: -469398985, guid: 487b6b9c8454eee4186f591c5b530a73, type: 3}
     voiceClip: {fileID: 0}

@@ -1,18 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance;
 
-    private AudioSource audioSource;
-    private AudioClip defaultClip;
+    [Header("Audio Sources")]
+    [SerializeField] private AudioSource audioSource;
 
+    [Header("Music Settings")]
     [Range(0.5f, 5f)] public float fadeDuration = 1.5f;
+    [SerializeField] private AudioClip defaultTrack; //TODO: remove duplicate default clip vs default track - which one is in use?
+
+    [Header("Songs")]
+    [SerializeField] private AudioClip defaultClip;
+    [SerializeField] private AudioClip ambientClip;
+    [SerializeField] private AudioClip ambientClip2;
+    [SerializeField] private AudioClip bellsClip;
+
+    //TODO: #music #soundtrack boss music is managed separately for now but should be managed through here later    
+
+    private AudioClip currentTrack;
+
+    private string currentSceneName;
 
     private Coroutine fadeCoroutine;
     private bool isInTriggerZone = false;
+
 
     void Awake()
     {
@@ -26,8 +42,18 @@ public class MusicManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        audioSource = GetComponent<AudioSource>();
-        defaultClip = audioSource.clip;
+        //audioSource = GetComponent<AudioSource>();
+        //defaultClip = audioSource.clip;
+        // Setup sources
+
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        currentSceneName = SceneManager.GetActiveScene().name;
+        currentTrack = defaultTrack;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Update()
@@ -95,4 +121,45 @@ public class MusicManager : MonoBehaviour
     }
 
     public bool IsInTriggerZone() => isInTriggerZone;
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        string newScene = scene.name;
+
+        // If you want to play a different track based on the scene:
+        AudioClip newTrack = GetTrackForScene(newScene);
+
+        if (newTrack == null)
+        {
+            // Continue looping current track
+            return;
+        }
+
+        if (newTrack != currentTrack)
+        {
+            PlayMusic(newTrack);
+        }
+
+        currentSceneName = newScene;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private AudioClip GetTrackForScene(string sceneName)
+    {
+        // 🎶 Add your scene-music mapping logic here
+        // Returning null = continue playing the current song
+        switch (sceneName)
+        {   //TODO: don't use hard coded string scene names here. Rushing a release out right now :(
+            case "DanaForestOpener1":
+                return bellsClip;
+            case "DanaBoss1":
+                return ambientClip2;
+            default:
+                return null; // no change
+        }
+    }
 }
