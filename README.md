@@ -10,7 +10,7 @@ Stay tuned for more about its future.
 
 ## Where to download
 
-- Coming Halloween 2025
+- [Cult of the Reaper - Halloween 2025 Release](https://sourceofentropy.itch.io/cult-of-the-reaper/devlog/1100336/halloween-update-now-with-25-real-combat)
 
 ## Developers Area
 
