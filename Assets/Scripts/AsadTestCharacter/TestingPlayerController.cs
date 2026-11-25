@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class TestingPlayerController : MonoBehaviour
@@ -26,7 +26,7 @@ public class TestingPlayerController : MonoBehaviour
     public int rageBar = 0;
 
     [Header("Disguise Settings")]
-    public float disguiseDuration = 10f; // duration of normal disguise
+    public float disguiseDuration = 10f;
     private float disguiseTimer;
 
     [Header("References")]
@@ -70,13 +70,10 @@ public class TestingPlayerController : MonoBehaviour
             else if (currentState == PlayerState.Disguise) ExitDisguise();
         }
 
+        // Hit enemy → build rage
         if (currentState == PlayerState.Regular && Input.GetKeyDown(KeyCode.E))
         {
-            if (IsNearEnemy())
-            {
-                rageBar = Mathf.Min(rageBar + 1, maxRage);
-                Debug.Log("Rage Bar: " + rageBar + "/" + maxRage);
-            }
+            if (IsNearEnemy()) AddRage(1);
         }
 
         if (currentState == PlayerState.Disguise && Input.GetKeyDown(KeyCode.E))
@@ -85,6 +82,7 @@ public class TestingPlayerController : MonoBehaviour
             else if (disguiseMode == DisguiseMode.Ultra) ExitUltraDisguise();
         }
 
+        // Activate rage
         if (currentState == PlayerState.Regular && Input.GetKeyDown(KeyCode.T))
         {
             if (rageBar >= maxRage) EnterRage();
@@ -123,6 +121,15 @@ public class TestingPlayerController : MonoBehaviour
             disguiseTimer -= Time.deltaTime;
             if (disguiseTimer <= 0) ExitDisguise();
         }
+    }
+
+    // Call this from any attack that hits an enemy
+    public void AddRage(int amount)
+    {
+        if (currentState == PlayerState.Rage) return;
+
+        rageBar = Mathf.Min(rageBar + amount, maxRage);
+        Debug.Log(rageBar >= maxRage ? "RAGE READY — press T" : $"Rage Bar: {rageBar}/{maxRage}");
     }
 
     bool IsNearEnemy()
@@ -219,5 +226,4 @@ public class TestingPlayerController : MonoBehaviour
     {
         return currentState == PlayerState.Disguise;
     }
-
 }
